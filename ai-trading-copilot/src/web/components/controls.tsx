@@ -12,8 +12,10 @@ export function HoldButton({ label, onConfirm, disabled, ms = 900 }: { label: st
     raf.current = undefined;
     if (!fired.current) setP(0);
   };
-  const begin = (e: React.PointerEvent) => {
+  const begin = (e: React.PointerEvent | React.KeyboardEvent) => {
     if (disabled) return;
+    if ("key" in e && e.key !== " " && e.key !== "Enter") return;
+    if ("key" in e && e.repeat) return;
     e.preventDefault();
     fired.current = false;
     start.current = performance.now();
@@ -40,8 +42,9 @@ export function HoldButton({ label, onConfirm, disabled, ms = 900 }: { label: st
       onPointerUp={stop}
       onPointerLeave={stop}
       onPointerCancel={stop}
+      onKeyDown={begin}
+      onKeyUp={stop}
       onContextMenu={(e) => e.preventDefault()}
-      onKeyDown={(e) => { if (e.key === "Enter" && !disabled && window.confirm(`${label}?`)) onConfirm(); }}
       aria-label={`${label} – press and hold to confirm`}
     >
       <span className="fill" style={{ transform: `scaleX(${p})` }} />

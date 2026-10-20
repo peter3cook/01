@@ -5,6 +5,7 @@ import { EquityChart, Sparkline } from "./components/charts";
 import { Check, Score } from "./components/controls";
 import { ago, dateTime, gbp, pct, price, qty, signedGbp, time, tone } from "./components/format";
 import { ProposalCard } from "./components/ProposalCard";
+import { useConfirm } from "./components/confirm";
 
 type Act = (label: string, f: () => Promise<unknown>, busyId?: string) => Promise<void>;
 
@@ -21,6 +22,7 @@ function Delta({ v, p }: { v: number; p?: number }) {
 // ------------------------------------------------------------------ Home
 
 export function Home({ s, go, act, close }: { s: AppState; go: (t: string) => void; act: Act; close: (symbol: string) => Promise<unknown> }) {
+  const ask = useConfirm();
   const a = s.account;
   const [pounds, pence] = a.equity.toFixed(2).split(".");
   return (
@@ -68,7 +70,7 @@ export function Home({ s, go, act, close }: { s: AppState; go: (t: string) => vo
                 <div className="right">
                   <div className="num" style={{ fontWeight: 650 }}>{gbp(p.marketValue)}</div>
                   <div className={`num ${tone(p.unrealisedPnl)}`} style={{ fontSize: 12.5 }}>{signedGbp(p.unrealisedPnl)} ({pct(p.unrealisedPct)})</div>
-                  <button className="btn small ghost" style={{ marginTop: 6 }} onClick={() => { if (confirm(`Sell all ${p.symbol} at the simulated bid?`)) void act(`Closed ${p.symbol}`, () => close(p.symbol)); }}>Close</button>
+                  <button className="btn small ghost" style={{ marginTop: 6 }} onClick={async () => { if (await ask({ title: `Close ${p.symbol}?`, body: "Sells the whole position at the current simulated bid.", confirmLabel: "Sell all", danger: true })) void act(`Closed ${p.symbol}`, () => close(p.symbol)); }}>Close</button>
                 </div>
               </div>
             ))}
@@ -296,6 +298,7 @@ const EDITABLE: { key: keyof RiskLimits; label: string; unit: "gbp" | "n" | "min
 ];
 
 export function Risk({ s, act, api }: { s: AppState; act: Act; api: { emergencyStop(a: boolean, c?: string): Promise<unknown>; tightenLimits(p: Partial<RiskLimits>): Promise<unknown>; closeAll(): Promise<unknown>; setOutage(a: boolean): Promise<unknown> } }) {
+  const ask = useConfirm();
   const [edit, setEdit] = useState<keyof RiskLimits | null>(null);
   const [val, setVal] = useState("");
   const es = s.emergencyStop;
@@ -306,12 +309,12 @@ export function Risk({ s, act, api }: { s: AppState; act: Act; api: { emergencyS
       <h2 className="section-title">Risk &amp; safety</h2>
       <button
         className={`estop ${es.active ? "on" : ""}`}
-        onClick={() => {
+        onClick={async () => {
           if (!es.active) {
-            if (confirm("Engage emergency stop? All pending approvals are cancelled and no new orders will be sent.")) void act("Emergency stop engaged", () => api.emergencyStop(true));
+            if (await ask({ title: "Engage emergency stop?", body: "All pending approvals are cancelled and no new orders will be sent until you release it.", confirmLabel: "Stop trading", danger: true })) void act("Emergency stop engaged", () => api.emergencyStop(true));
           } else {
-            const c = prompt('Type RESUME to release the emergency stop');
-            if (c) void act("Emergency stop released", () => api.emergencyStop(false, c));
+            const c = await ask({ title: "Release emergency stop?", body: "New proposals and approvals will be allowed again.", confirmLabel: "Release", typeToConfirm: "RESUME" });
+            if (c) void act("Emergency stop released", () => api.emergencyStop(false, c.trim()));
           }
         }}
       >
@@ -319,7 +322,7 @@ export function Risk({ s, act, api }: { s: AppState; act: Act; api: { emergencyS
         <small>{es.active ? `${es.reason ?? ""}${es.since ? ` · since ${time(es.since)}` : ""}` : "Halts all new orders and cancels pending approvals"}</small>
       </button>
       {es.active && s.positions.length > 0 && (
-        <button className="btn danger block" style={{ marginTop: 10 }} onClick={() => { if (confirm("Sell ALL open positions at the simulated bid?")) void act("Closing all positions", () => api.closeAll()); }}>Close all positions</button>
+        <button className="btn danger block" style={{ marginTop: 10 }} onClick={async () => { if (await ask({ title: "Close all positions?", body: "Sells every holding at the current simulated bid.", confirmLabel: "Sell all", danger: true })) void act("Closing all positions", () => api.closeAll()); }}>Close all positions</button>
       )}
 
       <section className="card" style={{ marginTop: 14 }}>

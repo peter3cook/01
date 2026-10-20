@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HttpApi, type CopilotApi } from "./api/client";
 import { App } from "./App";
+import { ConfirmProvider } from "./components/confirm";
 import "./styles.css";
 
 async function boot() {
@@ -15,7 +16,9 @@ async function boot() {
   }
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
-      <App api={api} />
+      <ConfirmProvider>
+        <App api={api} />
+      </ConfirmProvider>
     </StrictMode>,
   );
 }

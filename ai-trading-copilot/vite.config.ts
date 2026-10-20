@@ -15,6 +15,8 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: mode === "standalone" ? "../../dist/preview" : "../../dist/web",
     emptyOutDir: true,
+    // The preview ships as one self-contained page.
+    rollupOptions: mode === "standalone" ? { output: { inlineDynamicImports: true } } : undefined,
   },
   server: {
     proxy: { "/api": "http://localhost:8787" },
