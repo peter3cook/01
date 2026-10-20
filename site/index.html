@@ -1,32 +1,353 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yellowhammer Creative — UX-led websites from £199</title>
-  <meta name="description" content="Yellowhammer Creative is a UK design studio for UX-led websites, social media, SEO and digital marketing. Senior design, produced efficiently. Websites from £199.">
-  <meta name="theme-color" content="#FAFAF8">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yellowhammer Creative</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Yellowhammer Creative is a UK design studio for UX-led websites, social media, SEO and digital marketing. Websites from £199.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a designer's working canvas. Light paper ground, framed selections,
+   live cursors and redlines; client work shown as real device mockups. */
+:root {
+  --paper: #FAFAF8;
+  --white: #FFFFFF;
+  --graphite: #18181B;
+  --ink-2: #4A4A52;
+  --slate: #6B6B73;
+  --hairline: #E4E4E0;
+  --line: #D4D4CF;
+  --canvas: #F1F1EE;
+  --selection: #2E5BFF;
+  --redline: #D63D23;
+  --note: #FFF1B8;
+  --device: #1D1D1F;
+  --sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --cond: 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --gutter: clamp(16px, 5vw, 72px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--graphite); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: inherit; }
+a:hover { color: var(--selection); }
+:focus-visible { outline: 2px solid var(--selection); outline-offset: 3px; }
+svg { display: block; }
+.wrap { max-width: 1440px; margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--slate); }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--graphite); color: var(--white); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 8px; z-index: 20; }
+
+/* Selection frame */
+.frame { position: relative; display: inline-block; box-shadow: inset 0 0 0 2px var(--selection); padding: 0 .12em; }
+.frame i { position: absolute; width: 9px; height: 9px; background: var(--white); box-shadow: inset 0 0 0 2px var(--selection); }
+.frame i:nth-of-type(1) { top: -5px; left: -5px; } .frame i:nth-of-type(2) { top: -5px; right: -5px; }
+.frame i:nth-of-type(3) { bottom: -5px; left: -5px; } .frame i:nth-of-type(4) { bottom: -5px; right: -5px; }
+.frame--sm { box-shadow: inset 0 0 0 1.5px var(--selection); padding: 2px 9px; }
+.frame--sm i { width: 7px; height: 7px; box-shadow: inset 0 0 0 1.5px var(--selection); }
+.frame--sm i:nth-of-type(1) { top: -4px; left: -4px; } .frame--sm i:nth-of-type(2) { top: -4px; right: -4px; }
+.frame--sm i:nth-of-type(3) { bottom: -4px; left: -4px; } .frame--sm i:nth-of-type(4) { bottom: -4px; right: -4px; }
+.tag { display: inline-block; background: var(--selection); color: var(--white); font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0; line-height: 1; padding: 5px 7px; border-radius: 3px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 10px; font: 500 16px/1 var(--sans); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease; }
+.btn--dark { background: var(--graphite); color: var(--white); }
+.btn--dark:hover { color: var(--white); background: #000; transform: translateY(-1px); }
+.btn--light { background: var(--white); color: var(--graphite); box-shadow: inset 0 0 0 1px var(--line); }
+.btn--light:hover { color: var(--graphite); box-shadow: inset 0 0 0 1.5px var(--selection); }
+.btn--sm { min-height: 44px; padding: 0 18px; font-size: 15px; }
+
+/* Header */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(250,250,248,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--hairline); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 11; background: var(--paper); }
+.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; padding-block: 16px; }
+.logo { text-decoration: none; }
+.logo b { font-weight: 600; font-size: 23px; letter-spacing: -.055em; line-height: 1.2; }
+.nav { display: flex; flex-wrap: wrap; gap: 0 26px; font-size: 15px; }
+.nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--slate); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #1FA463; box-shadow: 0 0 0 3px rgba(31,164,99,.18); }
+.header-right { display: flex; align-items: center; gap: 18px; }
+@media (max-width: 900px) { .status { display: none; } }
+@media (max-width: 720px) { .nav { order: 3; width: 100%; gap: 0 20px; border-top: 1px solid var(--hairline); } }
+
+/* Hero */
+.hero { padding-block: clamp(36px, 6vw, 84px) clamp(40px, 6vw, 80px); }
+.hero h1 { font-weight: 600; font-size: clamp(46px, 8.2vw, 132px); line-height: .95; letter-spacing: -.06em; }
+.hero h1 .frame { margin-top: .12em; transition: width .45s cubic-bezier(.2,.8,.2,1); white-space: nowrap; vertical-align: top; }
+.hero h1 .word { display: inline-block; transition: opacity .2s ease, transform .2s ease; }
+.hero h1 .word.is-out { opacity: 0; transform: translateY(.12em); }
+.hero h1 .tag { position: absolute; left: -2px; top: calc(100% + 10px); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr); gap: 40px 56px; align-items: end; margin-top: clamp(56px, 6vw, 80px); }
+.hero__side { display: flex; flex-direction: column; gap: 26px; }
+.hero__lede { font-size: 19px; color: var(--ink-2); max-width: 46ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.price-note { font-family: var(--mono); font-size: 13px; color: var(--slate); }
+.price-note b { color: var(--graphite); font-weight: 500; }
+@media (max-width: 980px) { .hero__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Design canvas */
+.canvas { position: relative; border-radius: 16px; background-color: var(--canvas); background-image: radial-gradient(var(--line) 1px, transparent 1px); background-size: 18px 18px; box-shadow: inset 0 0 0 1px var(--hairline); padding: 44px clamp(16px, 3vw, 36px) 36px; overflow: hidden; }
+.canvas__label { position: absolute; top: 14px; left: 18px; font-family: var(--mono); font-size: 11px; color: var(--slate); }
+.boards { display: grid; grid-template-columns: minmax(0, 2.3fr) minmax(0, .9fr) minmax(0, 1fr); gap: clamp(14px, 2.4vw, 28px); align-items: start; }
+.board { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.board__name { font-family: var(--mono); font-size: 11px; color: var(--slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.board__art { position: relative; background: var(--white); box-shadow: 0 1px 2px rgba(24,24,27,.06), 0 12px 32px rgba(24,24,27,.08); container-type: inline-size; overflow: hidden; }
+.board--selected .board__art { overflow: visible; }
+.board--selected .board__art::after { content: ""; position: absolute; inset: -1px; box-shadow: 0 0 0 1.5px var(--selection); pointer-events: none; }
+.board--selected .board__name { color: var(--selection); }
+@media (max-width: 640px) { .boards { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .boards .board:first-child { grid-column: 1 / -1; } }
+
+.cursor { position: absolute; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
+.cursor span { margin: -3px 0 0 14px; color: var(--white); font-size: 12px; font-weight: 500; padding: 3px 8px; border-radius: 3px 10px 10px 10px; white-space: nowrap; }
+.cursor--us span { background: var(--selection); } .cursor--you span { background: var(--redline); }
+.cursor--us { animation: driftA 9s ease-in-out infinite; }
+.cursor--you { animation: driftB 11s ease-in-out infinite; }
+@keyframes driftA { 0%,100% { transform: translate(0,0); } 35% { transform: translate(-60px, 40px); } 70% { transform: translate(-20px, 90px); } }
+@keyframes driftB { 0%,100% { transform: translate(0,0); } 40% { transform: translate(80px, -30px); } 75% { transform: translate(30px, -70px); } }
+.sticky { position: absolute; z-index: 2; width: 150px; background: var(--note); padding: 10px 12px 12px; border-radius: 3px; font-size: 13px; line-height: 1.35; box-shadow: 0 3px 10px rgba(24,24,27,.10); transform: rotate(-2.5deg); }
+.sticky small { display: block; font-family: var(--mono); font-size: 10px; color: var(--slate); margin-bottom: 4px; }
+
+/* Mini brand: Hearth Bakery (desktop, sized in container units) */
+.hearth { background: #F3EBDD; color: #2B1D12; display: flex; flex-direction: column; gap: 3cqw; padding: 2.6cqw 3.6cqw 3.6cqw; aspect-ratio: 16 / 10; }
+.hearth nav { display: flex; justify-content: space-between; align-items: center; font-size: 1.35cqw; }
+.hearth nav b { font-family: var(--serif); font-weight: 400; font-size: 2.6cqw; letter-spacing: -.02em; }
+.hearth nav span { display: flex; gap: 2.4cqw; align-items: center; }
+.hearth .pill { background: #2B1D12; color: #F3EBDD; padding: .7cqw 1.6cqw; border-radius: 99px; }
+.hearth main { flex: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 3cqw; min-height: 0; }
+.hearth .copy { display: flex; flex-direction: column; justify-content: center; gap: 2cqw; }
+.hearth h4 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 6.6cqw; line-height: .92; letter-spacing: -.02em; }
+.hearth h4 em { color: #B5572B; }
+.hearth p { font-size: 1.45cqw; line-height: 1.5; max-width: 32ch; color: #5A4636; }
+.hearth .ctas { display: flex; gap: 1cqw; font-size: 1.35cqw; }
+.hearth .ctas span { padding: 1.1cqw 2cqw; border-radius: .8cqw; background: #B5572B; color: #FFF7EC; }
+.hearth .ctas span + span { background: transparent; box-shadow: inset 0 0 0 1px #2B1D12; color: #2B1D12; }
+.hearth .art { background: #E3CDAE; border-radius: 1.4cqw; display: grid; place-items: center; position: relative; }
+.hearth .art svg { width: 78%; height: auto; }
+.hearth .badge { position: absolute; right: 1.6cqw; top: 1.6cqw; width: 9cqw; height: 9cqw; border-radius: 50%; background: #2B1D12; color: #F3EBDD; display: grid; place-items: center; text-align: center; font-size: 1.15cqw; line-height: 1.15; transform: rotate(10deg); }
+
+/* Mini brand: Hearth mobile */
+.hearth-m { background: #F3EBDD; color: #2B1D12; display: flex; flex-direction: column; gap: 5cqw; padding: 13cqw 7cqw 7cqw; height: 100%; }
+.hearth-m nav { display: flex; justify-content: space-between; align-items: center; font-family: var(--serif); font-size: 8cqw; }
+.hearth-m nav i { width: 8cqw; height: 1.2cqw; background: #2B1D12; box-shadow: 0 2.6cqw 0 #2B1D12; }
+.hearth-m .art { background: #E3CDAE; border-radius: 5cqw; aspect-ratio: 1.2; display: grid; place-items: center; }
+.hearth-m .art svg { width: 82%; }
+.hearth-m h4 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 13cqw; line-height: .95; }
+.hearth-m h4 em { color: #B5572B; }
+.hearth-m small { font-size: 4.4cqw; color: #5A4636; }
+.hearth-m .order { margin-top: auto; background: #B5572B; color: #FFF7EC; text-align: center; padding: 4.6cqw; border-radius: 4cqw; font-size: 5cqw; font-weight: 500; }
+
+/* Mini brand: Movewell Physio (phone) */
+.move { background: #EEF4F1; color: #10302A; display: flex; flex-direction: column; gap: 5cqw; padding: 13cqw 7cqw 7cqw; height: 100%; }
+.move .top { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 6cqw; letter-spacing: -.04em; }
+.move .top i { width: 8cqw; height: 8cqw; border-radius: 50%; background: #1F7A63; }
+.move h4 { margin: 0; font-size: 12.5cqw; line-height: 1; font-weight: 600; letter-spacing: -.055em; }
+.move p { font-size: 4.4cqw; color: #3D5A52; line-height: 1.45; }
+.move .card { background: #FFFFFF; border-radius: 4cqw; padding: 4.4cqw; display: flex; flex-direction: column; gap: 3cqw; box-shadow: 0 1px 2px rgba(16,48,42,.08); }
+.move .card b { font-size: 4.2cqw; font-weight: 600; }
+.move .slots { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2cqw; }
+.move .slots span { text-align: center; font-size: 3.8cqw; padding: 2.6cqw 0; border-radius: 2.4cqw; background: #EEF4F1; font-variant-numeric: tabular-nums; }
+.move .slots span.on { background: #1F7A63; color: #FFFFFF; }
+.move .book { margin-top: auto; background: #10302A; color: #FFFFFF; text-align: center; padding: 4.6cqw; border-radius: 4cqw; font-size: 4.8cqw; font-weight: 500; }
+
+/* Mini brand: Studio Nine salon (social grid) */
+.nine { background: #FFFFFF; color: #2A1B24; display: flex; flex-direction: column; gap: 4cqw; padding: 12cqw 5cqw 5cqw; height: 100%; }
+.nine .profile { display: flex; align-items: center; gap: 4cqw; }
+.nine .avatar { width: 15cqw; height: 15cqw; border-radius: 50%; background: #2A1B24; color: #F2C7C2; display: grid; place-items: center; font-family: var(--serif); font-style: italic; font-size: 8cqw; flex-shrink: 0; }
+.nine .profile b { font-size: 4.6cqw; font-weight: 600; display: block; }
+.nine .profile small { font-size: 3.6cqw; color: #7A6470; }
+.nine .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; font-size: 3.8cqw; text-align: center; }
+.nine .btns span { padding: 2.4cqw; border-radius: 2cqw; background: #F3ECEF; }
+.nine .btns span:first-child { background: #2A1B24; color: #FFFFFF; }
+.nine .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1cqw; }
+.nine .grid div { aspect-ratio: 4 / 5; display: grid; place-items: center; text-align: center; padding: 2cqw; font-family: var(--serif); line-height: 1; overflow: hidden; }
+.n1 { background: #2A1B24; color: #F2C7C2; font-size: 6cqw; font-style: italic; }
+.n2 { background: #F2C7C2; color: #2A1B24; font-size: 9cqw; }
+.n3 { background: #E9E1DA; color: #2A1B24; font-family: var(--sans) !important; font-size: 3.4cqw; font-weight: 600; letter-spacing: .08em; }
+.n4 { background: #8C5E6E; color: #FFFFFF; font-size: 5.6cqw; }
+.n5 { background: repeating-linear-gradient(90deg, #2A1B24 0 3cqw, #F2C7C2 3cqw 6cqw); }
+.n6 { background: #F7F1EC; color: #8C5E6E; font-size: 6cqw; font-style: italic; }
+
+/* Mini brand: North & Stone builders (desktop) */
+.stone { background: #E9E6E1; color: #1C1C1C; display: flex; flex-direction: column; gap: 3cqw; padding: 2.6cqw 3.6cqw 3.6cqw; aspect-ratio: 16 / 10; font-family: var(--sans); }
+.stone nav { display: flex; justify-content: space-between; align-items: center; font-size: 1.3cqw; text-transform: uppercase; letter-spacing: .06em; }
+.stone nav b { font-family: var(--cond); font-stretch: 70%; font-weight: 900; font-size: 2.4cqw; letter-spacing: 0; }
+.stone nav span { display: flex; gap: 2.4cqw; align-items: center; }
+.stone .quote { background: #E2561F; color: #FFFFFF; padding: .8cqw 1.6cqw; }
+.stone main { flex: 1; display: grid; grid-template-columns: 1.15fr 1fr; gap: 3cqw; min-height: 0; }
+.stone h4 { margin: 0; font-family: var(--cond); font-stretch: 68%; font-weight: 900; text-transform: uppercase; font-size: 8.4cqw; line-height: .86; }
+.stone h4 span { color: #E2561F; }
+.stone .copy { display: flex; flex-direction: column; justify-content: space-between; gap: 2cqw; }
+.stone p { font-size: 1.45cqw; line-height: 1.5; color: #4A4744; max-width: 34ch; }
+.stone .tiles { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.3fr 1fr; gap: 1cqw; }
+.stone .tiles div { position: relative; }
+.stone .tiles div:nth-child(1) { grid-row: span 2; background: #5E5A55; }
+.stone .tiles div:nth-child(2) { background: #B9B2A7; }
+.stone .tiles div:nth-child(3) { background: #1C1C1C; }
+.stone .tiles small { position: absolute; left: 1cqw; bottom: 1cqw; font-size: 1.05cqw; background: rgba(255,255,255,.92); color: #1C1C1C; padding: .3cqw .7cqw; text-transform: uppercase; letter-spacing: .06em; }
+.stone .tiles svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Devices */
+.laptop { width: 100%; }
+.laptop__screen { border: clamp(6px, 1vw, 12px) solid var(--device); border-bottom-width: clamp(10px, 1.6vw, 18px); border-radius: 14px 14px 4px 4px; overflow: hidden; background: var(--white); container-type: inline-size; }
+.urlbar { height: 3.2cqw; min-height: 14px; background: #F4F4F2; border-bottom: 1px solid #E6E6E3; display: flex; align-items: center; justify-content: center; }
+.urlbar span { font-family: var(--mono); font-size: max(8px, 1.1cqw); color: var(--slate); background: var(--white); padding: .2cqw 2.4cqw; border-radius: 99px; }
+.laptop__base { height: clamp(8px, 1.2vw, 14px); margin: 0 -5%; border-radius: 0 0 14px 14px; background: #C9C9CC; box-shadow: inset 0 2px 0 #E2E2E4; position: relative; }
+.laptop__base::before { content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 14%; height: 45%; background: #B5B5B9; border-radius: 0 0 8px 8px; }
+.phone { position: relative; width: 100%; aspect-ratio: 9 / 19.2; border: clamp(5px, .9vw, 9px) solid var(--device); border-radius: clamp(22px, 3.4vw, 40px); overflow: hidden; background: var(--white); container-type: inline-size; box-shadow: 0 30px 60px rgba(24,24,27,.18); }
+.phone::before { content: ""; position: absolute; z-index: 2; top: 3cqw; left: 50%; transform: translateX(-50%); width: 30cqw; height: 8cqw; border-radius: 99px; background: var(--device); }
+
+/* Sections */
+.section { padding-block: clamp(72px, 10vw, 140px); border-top: 1px solid var(--hairline); }
+.section--white { background: var(--white); }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; margin-bottom: clamp(36px, 5vw, 64px); }
+.head h2 { font-weight: 600; font-size: clamp(38px, 5vw, 72px); line-height: 1; letter-spacing: -.055em; max-width: 15ch; }
+.head p { max-width: 40ch; color: var(--ink-2); }
+
+/* Ticker */
+.ticker { border-block: 1px solid var(--hairline); background: var(--white); overflow: hidden; padding-block: 18px; }
+.ticker__track { display: flex; gap: 40px; width: max-content; animation: tick 40s linear infinite; font-size: clamp(22px, 2.6vw, 34px); font-weight: 500; letter-spacing: -.04em; white-space: nowrap; }
+.ticker__track span { display: inline-flex; align-items: center; gap: 40px; }
+.ticker__track span::after { content: ""; width: 8px; height: 8px; background: var(--white); box-shadow: inset 0 0 0 1.5px var(--selection); }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* Wireframe / design toggle */
+.study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 40px 64px; align-items: center; }
+.study__copy { display: flex; flex-direction: column; gap: 22px; }
+.study__copy h2 { font-weight: 600; font-size: clamp(38px, 5vw, 72px); line-height: 1; letter-spacing: -.055em; }
+.study__copy p { color: var(--ink-2); max-width: 42ch; }
+.seg { display: inline-flex; padding: 4px; border-radius: 12px; background: var(--canvas); box-shadow: inset 0 0 0 1px var(--hairline); align-self: flex-start; }
+.seg button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent; font: 500 15px var(--sans); color: var(--ink-2); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--white); color: var(--graphite); box-shadow: 0 1px 2px rgba(24,24,27,.10), 0 0 0 1px var(--hairline); }
+.checks { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+.checks div { display: flex; gap: 12px; align-items: baseline; }
+.checks span { font-family: var(--mono); font-size: 12px; color: var(--redline); min-width: 22px; }
+.toggle-stage { position: relative; }
+.toggle-stage .layer { transition: opacity .45s ease; }
+.toggle-stage .layer--wire { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.toggle-stage.is-wire .layer--wire { opacity: 1; pointer-events: auto; }
+.toggle-stage.is-wire .layer--design { opacity: 0; }
+.wire { background: var(--white); display: flex; flex-direction: column; gap: 3cqw; padding: 2.6cqw 3.6cqw 3.6cqw; aspect-ratio: 16 / 10; position: relative; font-family: var(--mono); color: var(--slate); }
+.wire .bar { display: flex; justify-content: space-between; align-items: center; }
+.wire .box { background: #EDEDEA; border-radius: .6cqw; }
+.wire main { flex: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 3cqw; }
+.wire .col { display: flex; flex-direction: column; justify-content: center; gap: 1.6cqw; }
+.wire .img { position: relative; background: #F4F4F2; border: 1px dashed var(--line); border-radius: 1.4cqw; overflow: hidden; }
+.wire .img::before, .wire .img::after { content: ""; position: absolute; left: 50%; top: 50%; width: 140%; height: 1px; background: var(--line); transform: translate(-50%,-50%) rotate(32deg); }
+.wire .img::after { transform: translate(-50%,-50%) rotate(-32deg); }
+.anno { position: absolute; z-index: 2; font-family: var(--sans); font-size: max(10px, 1.25cqw); line-height: 1.3; color: var(--graphite); background: var(--note); padding: .8cqw 1.1cqw; border-radius: .4cqw; box-shadow: 0 2px 6px rgba(24,24,27,.12); max-width: 22cqw; }
+.anno b { font-family: var(--mono); font-weight: 500; color: var(--redline); margin-right: .4em; }
+.ring { position: absolute; z-index: 1; border: 1.5px dashed var(--redline); border-radius: .8cqw; }
+@media (max-width: 980px) { .study { grid-template-columns: minmax(0, 1fr); } }
+
+/* Work */
+.work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); }
+.case { display: flex; flex-direction: column; gap: 16px; text-decoration: none; }
+.case--wide { grid-column: 1 / -1; }
+.case__stage { position: relative; border-radius: 18px; overflow: hidden; padding: clamp(24px, 5vw, 72px) clamp(20px, 5vw, 80px) 0; display: flex; justify-content: center; align-items: flex-end; min-height: 300px; transition: box-shadow .2s ease; }
+.case:hover .case__stage { box-shadow: inset 0 0 0 2px var(--selection); }
+.case__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; }
+.case__meta h3 { font-size: 22px; font-weight: 600; letter-spacing: -.035em; }
+.case__meta p { font-size: 15px; color: var(--ink-2); flex-basis: 100%; max-width: 60ch; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--mono); font-size: 11px; padding: 4px 8px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); color: var(--ink-2); }
+.chip--concept { background: var(--note); box-shadow: none; color: var(--graphite); }
+.duo { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 0; align-items: end; width: 100%; max-width: 1040px; }
+.duo .phone { margin-left: -38%; margin-bottom: -12%; width: 138%; }
+.pair { display: flex; gap: clamp(12px, 3vw, 28px); align-items: flex-end; width: 100%; max-width: 480px; }
+.pair > div { flex: 1; min-width: 0; }
+.pair > div:first-child { transform: translateY(8%); }
+.single { width: 100%; max-width: 260px; transform: translateY(10%); }
+.serp { position: absolute; z-index: 2; right: clamp(16px, 4vw, 56px); top: clamp(16px, 4vw, 48px); width: min(46%, 380px); background: var(--white); border-radius: 12px; padding: 14px 16px 16px; box-shadow: 0 20px 40px rgba(24,24,27,.14); display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.serp__q { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--hairline); color: var(--graphite); }
+.serp__q svg { flex-shrink: 0; }
+.serp__r { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 8px; }
+.serp__r--top { background: #F2F5FF; box-shadow: inset 0 0 0 1.5px var(--selection); }
+.serp__r small { font-family: var(--mono); font-size: 11px; color: var(--slate); }
+.serp__r b { color: #1F3FB8; font-weight: 500; font-size: 14px; }
+.serp__r span { color: var(--ink-2); font-size: 12px; line-height: 1.4; }
+.serp__r--dim { opacity: .45; }
+.serp__r--dim b { color: var(--ink-2); }
+@media (max-width: 860px) { .work { grid-template-columns: minmax(0, 1fr); } .serp { position: relative; right: auto; top: auto; width: 100%; margin-bottom: 20px; } .case--wide .case__stage { flex-direction: column; align-items: stretch; } }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--graphite); }
+.service { padding: 26px 24px 30px 0; display: flex; flex-direction: column; gap: 12px; }
+.service + .service { padding-left: 24px; border-left: 1px solid var(--hairline); }
+.service .ico { width: 44px; height: 44px; border-radius: 10px; background: var(--canvas); display: grid; place-items: center; }
+.service h3 { font-size: 24px; font-weight: 600; letter-spacing: -.04em; line-height: 1.1; }
+.service p { color: var(--ink-2); font-size: 15px; flex: 1; }
+.service .from { font-family: var(--mono); font-size: 13px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.service .from b { color: var(--selection); font-weight: 500; }
+@media (max-width: 980px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } .service:nth-child(3) { padding-left: 0; border-left: 0; } .service:nth-child(n+3) { border-top: 1px solid var(--hairline); } }
+@media (max-width: 560px) { .services { grid-template-columns: minmax(0, 1fr); } .service, .service + .service { padding-left: 0; border-left: 0; } .service + .service { border-top: 1px solid var(--hairline); } }
+
+/* Why it's affordable */
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.why > div { background: var(--paper); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 1px var(--hairline); }
+.why .measure { display: flex; align-items: center; gap: 8px; color: var(--redline); font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+.why .measure i { flex: 1; height: 1px; background: var(--redline); }
+.why .measure em { font-style: normal; }
+.why h3 { font-size: 22px; font-weight: 600; letter-spacing: -.03em; }
+.why p { color: var(--ink-2); font-size: 15px; }
+@media (max-width: 860px) { .why { grid-template-columns: minmax(0, 1fr); } }
+
+/* Pricing */
+.pricing { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 20px; align-items: stretch; }
+.plan { background: var(--white); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 1px var(--hairline); }
+.plan--lead { position: relative; box-shadow: inset 0 0 0 2px var(--selection); }
+.plan--lead > i { position: absolute; width: 10px; height: 10px; background: var(--white); box-shadow: inset 0 0 0 2px var(--selection); }
+.plan--lead > i:nth-of-type(1) { top: -4px; left: -4px; } .plan--lead > i:nth-of-type(2) { top: -4px; right: -4px; }
+.plan--lead > i:nth-of-type(3) { bottom: -4px; left: -4px; } .plan--lead > i:nth-of-type(4) { bottom: -4px; right: -4px; }
+.plan .label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--slate); }
+.plan .amount { font-size: clamp(48px, 5vw, 72px); font-weight: 600; letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .amount small { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--slate); }
+.plan ul { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); font-size: 15px; flex: 1; }
+.plan li { display: flex; gap: 10px; }
+.plan li::before { content: ""; flex-shrink: 0; margin-top: 8px; width: 6px; height: 6px; background: var(--white); box-shadow: inset 0 0 0 1.5px var(--selection); }
+@media (max-width: 900px) { .pricing { grid-template-columns: minmax(0, 1fr); } }
+
+/* CTA */
+.cta .canvas { padding: clamp(56px, 9vw, 120px) clamp(20px, 6vw, 96px); min-height: 460px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; justify-content: center; }
+.cta h2 { font-weight: 600; font-size: clamp(42px, 7vw, 112px); line-height: .95; letter-spacing: -.06em; max-width: 13ch; }
+.contact-line { font-family: var(--mono); font-size: 13px; color: var(--slate); }
+.contact-line b { color: var(--graphite); font-weight: 500; user-select: all; }
+@media (max-width: 700px) { .cta .sticky { display: none; } }
+
+.site-footer { border-top: 1px solid var(--hairline); padding-block: 32px 40px; font-size: 14px; color: var(--slate); }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.site-footer nav a { text-decoration: none; padding: 10px 0; display: inline-block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor, .ticker__track { animation: none; }
+  .hero h1 .frame, .hero h1 .word, .toggle-stage .layer { transition: none; }
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="Yellowhammer Creative, home">
-      <span class="frame frame--sm"><span class="h" aria-hidden="true"></span><span class="word">yellowhammer</span></span>
-    </a>
+    <a class="logo" href="#main" aria-label="Yellowhammer Creative, home"><span class="frame frame--sm"><i></i><i></i><i></i><i></i><b>yellowhammer</b></span></a>
     <nav class="nav" aria-label="Main">
       <a href="#work">Work</a>
       <a href="#process">Process</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
     </nav>
-    <a class="btn btn--dark btn--sm" href="#contact">Start a project</a>
+    <div class="header-right">
+      <span class="status">Booking [MONTH]</span>
+      <a class="btn btn--dark btn--sm" href="#contact">Start a project</a>
+    </div>
   </div>
 </header>
 
@@ -34,200 +355,377 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
-      <div class="hero__copy">
-        <p class="eyebrow">UX-led websites for UK small businesses</p>
-        <h1 id="hero-title">Websites designed around your
-          <span class="frame"><span class="h" aria-hidden="true"></span>customers.<span class="tag" aria-hidden="true">Your customers · fill container</span></span>
-        </h1>
-        <p class="hero__lede">We plan every page around what your customers need to do, then design it beautifully. Senior UX and visual design, produced efficiently with AI-assisted workflows, so websites start at £199.</p>
-        <div class="actions">
-          <a class="btn btn--dark" href="#contact">Start a project</a>
-          <a class="btn btn--light" href="#process">See how we work</a>
-          <span class="price">Websites from £199</span>
-        </div>
-      </div>
+      <p class="eyebrow" style="margin-bottom: 22px;">UX-led design studio · Websites, social &amp; SEO</p>
+      <h1 id="hero-title">Websites designed around your <span class="frame" id="swapFrame"><i></i><i></i><i></i><i></i><span class="word" id="swapWord">customers.</span><span class="tag" id="swapTag" aria-hidden="true">H1 · Fill</span></span></h1>
 
-      <div class="board" aria-hidden="true">
-        <span class="board__label">Frame · Mobile 390</span>
-        <div class="phone">
-          <div class="phone__bar">Hearth Bakery <i class="phone__menu"></i></div>
-          <div class="phone__img"></div>
-          <div class="phone__body">
-            <span class="phone__title">Fresh bread, ready by 7am.</span>
-            <span class="phone__meta">Open today · 7am–4pm</span>
+      <div class="hero__grid">
+        <div class="hero__side">
+          <p class="hero__lede">We plan every page around what your customers need to do, then make it look like it cost ten times more. Senior UX and visual design, produced efficiently with AI-assisted workflows.</p>
+          <div class="actions">
+            <a class="btn btn--dark" href="#contact">Start a project</a>
+            <a class="btn btn--light" href="#work">See the work</a>
           </div>
-          <div class="phone__cta"><span>Order for collection</span></div>
+          <p class="price-note">Websites from <b>£199</b> · Fixed prices · No surprises</p>
         </div>
-        <div class="measure" style="right: 24px; bottom: 28px;">
-          <i class="cap"></i><i class="ln"></i>46<i class="ln"></i><i class="cap"></i>
-        </div>
-        <div class="note" style="top: 124px; left: 18px;"><small>UX note</small>Put “Order” where thumbs reach first.</div>
-        <div class="cursor cursor--us" style="right: 30px; top: 96px;">
-          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#2E5BFF" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          <span>Yellowhammer</span>
-        </div>
-        <div class="cursor cursor--you" style="left: 70px; bottom: 72px;">
-          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#D63D23" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          <span>You</span>
+
+        <div class="canvas" aria-label="A design canvas showing three client projects in progress">
+          <span class="canvas__label">Yellowhammer / Client work / In progress</span>
+          <div class="boards">
+            <div class="board board--selected">
+              <span class="board__name">Hearth Bakery — Desktop 1440</span>
+              <div class="board__art">
+                <div class="hearth">
+                  <nav><b>Hearth</b><span><span>Bread</span><span>Cakes</span><span>Visit</span><span class="pill">Order</span></span></nav>
+                  <main>
+                    <div class="copy">
+                      <h4>Bread worth getting <em>up early</em> for.</h4>
+                      <p>Slow-fermented sourdough, baked through the night and ready from 7am.</p>
+                      <div class="ctas"><span>Order for collection</span><span>Find us</span></div>
+                    </div>
+                    <div class="art">
+                      <span class="badge">Baked<br>from<br>4am</span>
+                      <svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="96" cy="78" rx="82" ry="40" fill="#B5572B"/><ellipse cx="96" cy="70" rx="74" ry="30" fill="#C66A38"/><path d="M50 62 q14 -14 30 -4 M86 56 q14 -14 30 -4 M122 62 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="104" rx="30" ry="16" fill="#8E3F1C"/><path d="M146 100 q8 -8 18 -2" stroke="#E9C08F" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                  </main>
+                </div>
+              </div>
+            </div>
+            <div class="board">
+              <span class="board__name">Movewell — Book</span>
+              <div class="board__art" style="aspect-ratio: 9 / 17;">
+                <div class="move">
+                  <div class="top">movewell<i></i></div>
+                  <h4>Book a session</h4>
+                  <div class="card">
+                    <b>Tue 14 · Sports massage</b>
+                    <div class="slots"><span>09:00</span><span class="on">10:30</span><span>13:15</span><span>15:00</span><span>16:30</span><span>18:00</span></div>
+                  </div>
+                  <div class="book">Confirm 10:30</div>
+                </div>
+              </div>
+            </div>
+            <div class="board">
+              <span class="board__name">Studio Nine — Instagram</span>
+              <div class="board__art" style="aspect-ratio: 4 / 5; display: grid; place-items: center; background: #2A1B24; color: #F2C7C2; padding: 12%; text-align: center;">
+                <span style="font-family: var(--serif); font-style: italic; font-size: 13cqw; line-height: 1;">New season,<br>new you.</span>
+              </div>
+            </div>
+          </div>
+          <div class="sticky" style="left: 46%; bottom: 22px;"><small>Note · Hearth</small>Order button above the fold on every page.</div>
+          <div class="cursor cursor--us" style="right: 26%; top: 34%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#2E5BFF" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Yellowhammer</span></div>
+          <div class="cursor cursor--you" style="left: 18%; bottom: 20%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#D63D23" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>You</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--white" aria-labelledby="why-title">
-    <div class="wrap">
-      <div class="section__head">
-        <h2 id="why-title">Agency-quality design. Without the agency overheads.</h2>
-        <p>Our prices are low because our process is efficient, not because we cut corners.</p>
+  <div class="ticker" aria-label="Businesses we design for">
+    <div class="ticker__track">
+      <span>Bakeries</span><span>Physios</span><span>Salons</span><span>Builders</span><span>Cafés</span><span>Dentists</span><span>Florists</span><span>Architects</span><span>Gyms</span><span>Restaurants</span>
+      <span aria-hidden="true">Bakeries</span><span aria-hidden="true">Physios</span><span aria-hidden="true">Salons</span><span aria-hidden="true">Builders</span><span aria-hidden="true">Cafés</span><span aria-hidden="true">Dentists</span><span aria-hidden="true">Florists</span><span aria-hidden="true">Architects</span><span aria-hidden="true">Gyms</span><span aria-hidden="true">Restaurants</span>
+    </div>
+  </div>
+
+  <section class="section" id="process" aria-labelledby="study-title">
+    <div class="wrap study">
+      <div class="study__copy">
+        <p class="eyebrow">How we work</p>
+        <h2 id="study-title">Every pixel has a reason.</h2>
+        <p>Before we pick a colour, we plan what each page must do. Flip between the wireframe and the finished design to see the thinking behind it.</p>
+        <div class="seg" role="group" aria-label="View">
+          <button type="button" id="viewDesign" aria-pressed="true">Design</button>
+          <button type="button" id="viewWire" aria-pressed="false">Wireframe</button>
+        </div>
+        <div class="checks">
+          <div><span>01</span>Opening hours visible without scrolling</div>
+          <div><span>02</span>“Order” is the first button people see</div>
+          <div><span>03</span>One clear message, in the customer’s words</div>
+        </div>
       </div>
-      <div class="grid">
-        <div class="why">
-          <span class="num">01</span>
-          <h3>Standardised packages</h3>
-          <p>Clear scopes and proven page structures mean no endless meetings and no surprise invoices.</p>
+
+      <div class="laptop">
+        <div class="laptop__screen">
+          <div class="urlbar"><span>hearthbakery.co.uk</span></div>
+          <div class="toggle-stage" id="stage">
+            <div class="layer layer--design">
+              <div class="hearth">
+                <nav><b>Hearth</b><span><span>Bread</span><span>Cakes</span><span>Open 7am–4pm</span><span class="pill">Order</span></span></nav>
+                <main>
+                  <div class="copy">
+                    <h4>Bread worth getting <em>up early</em> for.</h4>
+                    <p>Slow-fermented sourdough, baked through the night and ready from 7am.</p>
+                    <div class="ctas"><span>Order for collection</span><span>Find us</span></div>
+                  </div>
+                  <div class="art">
+                    <span class="badge">Baked<br>from<br>4am</span>
+                    <svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="96" cy="78" rx="82" ry="40" fill="#B5572B"/><ellipse cx="96" cy="70" rx="74" ry="30" fill="#C66A38"/><path d="M50 62 q14 -14 30 -4 M86 56 q14 -14 30 -4 M122 62 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="104" rx="30" ry="16" fill="#8E3F1C"/><path d="M146 100 q8 -8 18 -2" stroke="#E9C08F" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+                  </div>
+                </main>
+              </div>
+            </div>
+            <div class="layer layer--wire" aria-hidden="true">
+              <div class="wire">
+                <div class="bar"><span class="box" style="width: 9cqw; height: 2.6cqw;"></span><span style="display: flex; gap: 1.6cqw;"><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 10cqw; height: 1.6cqw;"></span><span class="box" style="width: 6cqw; height: 2.6cqw; background: var(--graphite);"></span></span></div>
+                <main>
+                  <div class="col">
+                    <span class="box" style="height: 5.6cqw; width: 92%;"></span>
+                    <span class="box" style="height: 5.6cqw; width: 70%;"></span>
+                    <span class="box" style="height: 1.4cqw; width: 80%; margin-top: 1cqw;"></span>
+                    <span class="box" style="height: 1.4cqw; width: 60%;"></span>
+                    <span style="display: flex; gap: 1cqw; margin-top: 1cqw;"><span class="box" style="height: 3.6cqw; width: 16cqw; background: var(--graphite);"></span><span class="box" style="height: 3.6cqw; width: 9cqw;"></span></span>
+                  </div>
+                  <div class="img"></div>
+                </main>
+                <span class="ring" style="right: 2.6cqw; top: 1.6cqw; width: 23cqw; height: 4.4cqw;"></span>
+                <span class="anno" style="right: 3cqw; top: 7cqw;"><b>01</b>Hours in the header, always visible</span>
+                <span class="ring" style="left: 3cqw; top: 42.2cqw; width: 18.4cqw; height: 5cqw;"></span>
+                <span class="anno" style="left: 22.6cqw; top: 42.4cqw;"><b>02</b>Primary action first, thumb-sized on mobile</span>
+                <span class="ring" style="left: 3cqw; top: 19.8cqw; width: 42cqw; height: 13.8cqw;"></span>
+                <span class="anno" style="left: 26cqw; top: 15.6cqw;"><b>03</b>Say what you sell in 6 words</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="why">
-          <span class="num">02</span>
-          <h3>AI-assisted production</h3>
-          <p>Smart tools handle the repetitive build work, so your budget goes on thinking and design.</p>
-        </div>
-        <div class="why">
-          <span class="num">03</span>
-          <h3>Senior eyes on everything</h3>
-          <p>Every layout, word and button is reviewed by an experienced designer before it goes live.</p>
-        </div>
+        <div class="laptop__base"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="work-title">Selected work</h2>
+        <p>Concept projects that show how we work across websites, social and search. Client case studies are added as projects launch.</p>
+      </div>
+
+      <div class="work">
+        <a class="case case--wide" href="#contact">
+          <div class="case__stage" style="background: #EFE4D2;">
+            <div class="duo">
+              <div class="laptop">
+                <div class="laptop__screen">
+                  <div class="urlbar"><span>hearthbakery.co.uk</span></div>
+                  <div class="hearth">
+                    <nav><b>Hearth</b><span><span>Bread</span><span>Cakes</span><span>Open 7am–4pm</span><span class="pill">Order</span></span></nav>
+                    <main>
+                      <div class="copy">
+                        <h4>Bread worth getting <em>up early</em> for.</h4>
+                        <p>Slow-fermented sourdough, baked through the night and ready from 7am.</p>
+                        <div class="ctas"><span>Order for collection</span><span>Find us</span></div>
+                      </div>
+                      <div class="art">
+                        <span class="badge">Baked<br>from<br>4am</span>
+                        <svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="96" cy="78" rx="82" ry="40" fill="#B5572B"/><ellipse cx="96" cy="70" rx="74" ry="30" fill="#C66A38"/><path d="M50 62 q14 -14 30 -4 M86 56 q14 -14 30 -4 M122 62 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="104" rx="30" ry="16" fill="#8E3F1C"/><path d="M146 100 q8 -8 18 -2" stroke="#E9C08F" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+                      </div>
+                    </main>
+                  </div>
+                </div>
+                <div class="laptop__base"></div>
+              </div>
+              <div class="phone">
+                <div class="hearth-m">
+                  <nav>Hearth<i></i></nav>
+                  <div class="art"><svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="100" cy="74" rx="84" ry="40" fill="#B5572B"/><ellipse cx="100" cy="66" rx="76" ry="30" fill="#C66A38"/><path d="M54 58 q14 -14 30 -4 M90 52 q14 -14 30 -4 M126 58 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/></svg></div>
+                  <h4>Bread worth getting <em>up early</em> for.</h4>
+                  <small>Open today · 7am–4pm</small>
+                  <div class="order">Order for collection</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="case__meta">
+            <h3>Hearth Bakery</h3>
+            <div class="chips"><span class="chip">Website</span><span class="chip">Ordering</span><span class="chip chip--concept">Concept</span></div>
+            <p>A warm, editorial site for an independent bakery, built around one job: getting people to order before the morning rush.</p>
+          </div>
+        </a>
+
+        <a class="case" href="#contact">
+          <div class="case__stage" style="background: #DDEBE5;">
+            <div class="pair">
+              <div class="phone">
+                <div class="move">
+                  <div class="top">movewell<i></i></div>
+                  <h4>Move better. Hurt less.</h4>
+                  <p>Physiotherapy and sports massage, with appointments that fit around work.</p>
+                  <div class="card"><b>Next available</b><span style="font-size: 4.2cqw; color: #3D5A52;">Tue 14 · 10:30</span></div>
+                  <div class="book">Book a session</div>
+                </div>
+              </div>
+              <div class="phone">
+                <div class="move">
+                  <div class="top">movewell<i></i></div>
+                  <h4 style="font-size: 10cqw;">Choose a time</h4>
+                  <div class="card">
+                    <b>Tue 14 · Sports massage</b>
+                    <div class="slots"><span>09:00</span><span class="on">10:30</span><span>13:15</span><span>15:00</span><span>16:30</span><span>18:00</span></div>
+                  </div>
+                  <div class="card"><b>45 min · [PRICE]</b><span style="font-size: 3.8cqw; color: #3D5A52;">With [THERAPIST]</span></div>
+                  <div class="book">Confirm 10:30</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="case__meta">
+            <h3>Movewell Physio</h3>
+            <div class="chips"><span class="chip">Website</span><span class="chip">Online booking</span><span class="chip chip--concept">Concept</span></div>
+            <p>Booking in three taps, designed for patients searching on their phones.</p>
+          </div>
+        </a>
+
+        <a class="case" href="#contact">
+          <div class="case__stage" style="background: #F2DCD8;">
+            <div class="single">
+              <div class="phone">
+                <div class="nine">
+                  <div class="profile"><span class="avatar">9</span><div><b>studionine.salon</b><small>Hair &amp; colour · [TOWN]</small></div></div>
+                  <div class="btns"><span>Book now</span><span>Message</span></div>
+                  <div class="grid">
+                    <div class="n1">New season, new you.</div>
+                    <div class="n2">9</div>
+                    <div class="n3">TUES–SAT</div>
+                    <div class="n4">Colour clinic</div>
+                    <div class="n5"></div>
+                    <div class="n6">Book online</div>
+                    <div class="n2" style="font-size: 6cqw; font-style: italic;">Glow.</div>
+                    <div class="n1" style="font-style: normal; font-size: 5cqw;">Meet the team</div>
+                    <div class="n3">GIFT CARDS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="case__meta">
+            <h3>Studio Nine</h3>
+            <div class="chips"><span class="chip">Social media</span><span class="chip">Templates</span><span class="chip chip--concept">Concept</span></div>
+            <p>A social grid that looks planned, because it is. Reusable templates keep every post on brand.</p>
+          </div>
+        </a>
+
+        <a class="case case--wide" href="#contact">
+          <div class="case__stage" style="background: #DEDAD3;">
+            <div class="serp" aria-hidden="true">
+              <div class="serp__q"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#6B6B73" stroke-width="2"/><path d="M15.5 15.5 L21 21" stroke="#6B6B73" stroke-width="2" stroke-linecap="round"/></svg>builders near me</div>
+              <div class="serp__r serp__r--top"><small>northandstone.co.uk</small><b>North &amp; Stone | Builders in [TOWN]</b><span>Extensions, renovations and new homes. Free site visits and fixed quotes.</span></div>
+              <div class="serp__r serp__r--dim"><small>example-builder.co.uk</small><b>Local Builder</b><span>Home page</span></div>
+            </div>
+            <div style="width: 100%; max-width: 860px;">
+              <div class="laptop">
+                <div class="laptop__screen">
+                  <div class="urlbar"><span>northandstone.co.uk</span></div>
+                  <div class="stone">
+                    <nav><b>North &amp; Stone</b><span><span>Projects</span><span>Services</span><span>About</span><span class="quote">Get a quote</span></span></nav>
+                    <main>
+                      <div class="copy">
+                        <h4>Homes built to last <span>a century.</span></h4>
+                        <p>Extensions, renovations and new builds across [REGION], with one team from first sketch to final snag.</p>
+                      </div>
+                      <div class="tiles">
+                        <div><svg viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 140 L0 70 L50 30 L100 70 L100 140 Z" fill="#78736C"/><rect x="18" y="82" width="22" height="30" fill="#E9E6E1" opacity=".85"/><rect x="58" y="82" width="22" height="58" fill="#3E3B37"/></svg><small>Extension</small></div>
+                        <div><small>Kitchen</small></div>
+                        <div><small>New build</small></div>
+                      </div>
+                    </main>
+                  </div>
+                </div>
+                <div class="laptop__base"></div>
+              </div>
+            </div>
+          </div>
+          <div class="case__meta">
+            <h3>North &amp; Stone</h3>
+            <div class="chips"><span class="chip">Website</span><span class="chip">Local SEO</span><span class="chip chip--concept">Concept</span></div>
+            <p>A confident site for a family building firm, structured so it can rank for the searches local homeowners actually make.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
 
   <section class="section" id="services" aria-labelledby="services-title">
     <div class="wrap">
-      <div class="section__head">
-        <h2 id="services-title">Everything you need to be found, trusted and chosen.</h2>
+      <div class="head">
+        <h2 id="services-title">Everything you need to be found and chosen.</h2>
         <p>Start with a website, then add social, search and marketing when you’re ready.</p>
       </div>
-      <div class="grid">
+      <div class="services">
         <article class="service">
-          <span class="num">01</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span>
           <h3>Websites</h3>
-          <p>Fast, mobile-first websites designed around the one thing you want visitors to do: call, book, buy or visit.</p>
-          <span class="price">From <strong>£199</strong></span>
+          <p>Fast, mobile-first sites built around the one thing you want visitors to do: call, book, buy or visit.</p>
+          <span class="from">From <b>£199</b></span>
         </article>
         <article class="service">
-          <span class="num">02</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.8" cy="7.2" r=".8" fill="#18181B"/></svg></span>
           <h3>Social media</h3>
-          <p>Consistent, on-brand posts that keep you visible and give people a reason to follow.</p>
-          <span class="price">From <strong>[£ / MONTH]</strong></span>
+          <p>Planned, on-brand posts that keep you visible and give people a reason to follow.</p>
+          <span class="from">From <b>[£ / MONTH]</b></span>
         </article>
         <article class="service">
-          <span class="num">03</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></span>
           <h3>SEO</h3>
-          <p>Get found on Google by the people searching for exactly what you offer, nearby.</p>
-          <span class="price">From <strong>[£ / MONTH]</strong></span>
+          <p>Show up when nearby customers search for exactly what you offer.</p>
+          <span class="from">From <b>[£ / MONTH]</b></span>
         </article>
         <article class="service">
-          <span class="num">04</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
           <h3>Digital marketing</h3>
-          <p>Campaigns, email and ads that turn attention into enquiries you can measure.</p>
-          <span class="price">From <strong>[£ / MONTH]</strong></span>
+          <p>Email, ads and campaigns that turn attention into enquiries you can measure.</p>
+          <span class="from">From <b>[£ / MONTH]</b></span>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section section--white" id="process" aria-labelledby="process-title">
+  <section class="section section--white" aria-labelledby="why-title">
     <div class="wrap">
-      <div class="section__head">
-        <h2 id="process-title">How we work. Out in the open.</h2>
-        <p>You see the thinking at every step, and you can comment on it as we go.</p>
+      <div class="head">
+        <h2 id="why-title">Big-agency craft. Small-studio invoice.</h2>
+        <p>Our prices are low because our process is efficient, not because we cut corners.</p>
       </div>
-      <div class="steps">
-        <div class="step">
-          <span class="num">01 — Understand</span>
-          <h3>Who it’s for</h3>
-          <p>We learn who your customers are and what they came to do.</p>
+      <div class="why">
+        <div>
+          <span class="measure"><em>Scope</em><i></i><em>fixed</em></span>
+          <h3>Standard packages</h3>
+          <p>Clear scopes and proven page structures. No endless meetings, no surprise invoices.</p>
         </div>
-        <div class="step">
-          <span class="num">02 — Wireframe</span>
-          <h3>What goes where</h3>
-          <p>We map every page to that job before any styling.</p>
+        <div>
+          <span class="measure"><em>Build</em><i></i><em>AI-assisted</em></span>
+          <h3>Efficient production</h3>
+          <p>Smart tools handle the repetitive build work, so your budget goes on thinking and design.</p>
         </div>
-        <div class="step">
-          <span class="num">03 — Design</span>
-          <h3>How it looks</h3>
-          <p>We make it beautiful, on brand and fast on every phone.</p>
-        </div>
-        <div class="step">
-          <span class="num">04 — Launch &amp; grow</span>
-          <h3>What happens next</h3>
-          <p>We go live, then help you grow with SEO, social and improvements.</p>
+        <div>
+          <span class="measure"><em>Review</em><i></i><em>senior</em></span>
+          <h3>Senior eyes on everything</h3>
+          <p>An experienced designer checks every layout, word and button before anything goes live.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="work" aria-labelledby="work-title">
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
-      <div class="section__head">
-        <h2 id="work-title">Selected work</h2>
-        <p>Sample concepts showing our approach. Client case studies coming soon.</p>
-      </div>
-      <div class="grid">
-        <a class="work" href="#">
-          <div class="work__shot" style="background: #FFFFFF;">
-            <div class="work__chrome">hearthbakery.example</div>
-            <div class="work__inner">
-              <div class="work__head">Fresh bread, ready by 7am.</div>
-              <div class="work__blocks"><i style="background:#E7DDCB"></i><i style="background:#C9B48F"></i><i style="background:#18181B"></i></div>
-            </div>
-          </div>
-          <div class="work__meta"><b>Hearth Bakery</b><span>Sample concept · Website</span></div>
-        </a>
-        <a class="work" href="#">
-          <div class="work__shot" style="background: #EEF1F6;">
-            <div class="work__chrome">movewell.example</div>
-            <div class="work__inner">
-              <div class="work__head">Move better. Hurt less.</div>
-              <div class="work__blocks"><i style="background:#FFFFFF"></i><i style="background:#2E5BFF"></i><i style="background:#C9D2E3"></i></div>
-            </div>
-          </div>
-          <div class="work__meta"><b>Movewell Physio</b><span>Sample concept · Website + SEO</span></div>
-        </a>
-        <a class="work" href="#">
-          <div class="work__shot" style="background: #F1F1EE;">
-            <div class="work__chrome">northandstone.example</div>
-            <div class="work__inner">
-              <div class="work__head">Homes built to last a century.</div>
-              <div class="work__blocks"><i style="background:#D4D4CF"></i><i style="background:#6B6B73"></i><i style="background:#FFFFFF"></i></div>
-            </div>
-          </div>
-          <div class="work__meta"><b>North &amp; Stone</b><span>Sample concept · Website + social</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--white" id="pricing" aria-labelledby="pricing-title">
-    <div class="wrap">
-      <div class="section__head">
+      <div class="head">
         <h2 id="pricing-title">Clear prices. No surprises.</h2>
         <p>Fixed-price packages, so you know exactly what you’re paying before we start.</p>
       </div>
       <div class="pricing">
-        <div>
-          <span class="label">Websites</span>
+        <div class="plan plan--lead">
+          <i></i><i></i><i></i><i></i>
+          <span class="label">Website</span>
           <span class="amount">£199 <small>from</small></span>
-          <p>[What’s included in the starter package]</p>
+          <ul><li>[What’s included, item 1]</li><li>[What’s included, item 2]</li><li>[What’s included, item 3]</li></ul>
+          <a class="btn btn--dark" href="#contact" style="margin-top: 12px;">Start with a website</a>
         </div>
-        <div>
+        <div class="plan">
           <span class="label">Social media</span>
           <span class="amount">[£] <small>/ month</small></span>
-          <p>[What’s included]</p>
+          <ul><li>[What’s included]</li><li>[What’s included]</li></ul>
         </div>
-        <div>
+        <div class="plan">
           <span class="label">SEO &amp; marketing</span>
           <span class="amount">[£] <small>/ month</small></span>
-          <p>[What’s included]</p>
+          <ul><li>[What’s included]</li><li>[What’s included]</li></ul>
         </div>
       </div>
     </div>
@@ -235,11 +733,16 @@
 
   <section class="section cta" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
-      <p class="eyebrow">Now booking projects for [MONTH]</p>
-      <h2 id="contact-title">Let’s design something your <span class="frame"><span class="h" aria-hidden="true"></span>customers</span> will love.</h2>
-      <div class="actions">
-        <a class="btn btn--dark" href="mailto:[EMAIL]">Start a project</a>
-        <a class="btn btn--light" href="tel:[PHONE]">Call [PHONE]</a>
+      <div class="canvas">
+        <span class="canvas__label">Your project / Frame 1</span>
+        <p class="eyebrow">Now booking projects for [MONTH]</p>
+        <h2 id="contact-title">Let’s design something your customers will <span class="frame"><i></i><i></i><i></i><i></i>love.</span></h2>
+        <div class="actions">
+          <a class="btn btn--dark" href="#contact">Start a project</a>
+          <span class="contact-line">Email <b>[EMAIL]</b> · Call <b>[PHONE]</b></span>
+        </div>
+        <div class="sticky" style="right: 8%; top: 18%; transform: rotate(3deg);"><small>Note</small>Bring your logo, a few photos and a coffee.</div>
+        <div class="sticky" style="right: 18%; bottom: 14%;"><small>Note</small>Not sure what you need? We’ll help you work it out.</div>
       </div>
     </div>
   </section>
@@ -249,13 +752,54 @@
 <footer class="site-footer">
   <div class="wrap">
     <span>© 2026 Yellowhammer Creative · Designed &amp; built in the UK</span>
-    <nav aria-label="Footer">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <nav aria-label="Footer"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav>
   </div>
 </footer>
+
+<script>
+(function () {
+  // Hero: the selected word cycles, and the selection frame resizes to fit it.
+  var words = ['customers.', 'bookings.', 'phone calls.', 'online orders.', 'regulars.'];
+  var frame = document.getElementById('swapFrame');
+  var word = document.getElementById('swapWord');
+  var tag = document.getElementById('swapTag');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var i = 0;
+  function size() {
+    var r = frame.getBoundingClientRect();
+    tag.textContent = 'H1 · ' + Math.round(r.width) + ' × ' + Math.round(r.height);
+  }
+  function next() {
+    i = (i + 1) % words.length;
+    var from = frame.offsetWidth;
+    word.classList.add('is-out');
+    setTimeout(function () {
+      word.textContent = words[i];
+      frame.style.width = 'auto';
+      var to = frame.offsetWidth;
+      frame.style.width = from + 'px';
+      frame.offsetWidth;
+      frame.style.width = to + 'px';
+      word.classList.remove('is-out');
+      setTimeout(function () { frame.style.width = ''; size(); }, 480);
+    }, 200);
+  }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(size); } else { size(); }
+  window.addEventListener('resize', size);
+  if (!reduce) { setInterval(next, 2600); }
+
+  // Case study: switch between the design and the wireframe.
+  var stage = document.getElementById('stage');
+  var bD = document.getElementById('viewDesign');
+  var bW = document.getElementById('viewWire');
+  function show(wire) {
+    stage.classList.toggle('is-wire', wire);
+    bD.setAttribute('aria-pressed', String(!wire));
+    bW.setAttribute('aria-pressed', String(wire));
+  }
+  bD.addEventListener('click', function () { show(false); });
+  bW.addEventListener('click', function () { show(true); });
+})();
+</script>
 </body>
 </html>
