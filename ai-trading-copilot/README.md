@@ -1,4 +1,4 @@
-# AI Trading Copilot
+# Pete’s Trading
 
 A mobile-first trading assistant for a small UK account. It scans liquid UK-listed ETFs, suggests trades using transparent rules, explains them in plain English (optionally with Claude), and either **waits for your approval on your phone** or, in **auto mode**, places the trade itself within fixed risk limits.
 

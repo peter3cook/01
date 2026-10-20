@@ -19,7 +19,7 @@ async function main() {
       : config.tradingMode === "paper"
         ? "PAPER – Trading 212 practice account, real prices"
         : "SIMULATED – made-up prices, paper broker";
-  console.log(`AI Trading Copilot starting in ${banner}`);
+  console.log(`Pete’s Trading starting in ${banner}`);
 
   const { app, engine, saveMarket, refreshPrices } = await buildApp(config);
   await refreshPrices();

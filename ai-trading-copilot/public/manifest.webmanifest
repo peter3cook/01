@@ -1,6 +1,6 @@
 {
-  "name": "AI Trading Copilot (Demo)",
-  "short_name": "Copilot",
+  "name": "Pete’s Trading",
+  "short_name": "Pete’s Trading",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#07090c",

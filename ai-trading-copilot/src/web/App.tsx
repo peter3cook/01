@@ -25,7 +25,7 @@ export function App({ api }: { api: CopilotApi }) {
       setNeedToken(false);
     } catch (e) {
       if (e instanceof ApiError && e.status === 401) setNeedToken(true);
-      else setErr("Can't reach the Copilot server. Nothing will be traded while disconnected.");
+      else setErr("Can't reach the server. Nothing will be traded while disconnected.");
     }
   }, [api]);
 
@@ -76,9 +76,9 @@ export function App({ api }: { api: CopilotApi }) {
     <>
       <div className="app">
         <header className="topbar">
-          <div className="brand"><span className="brand-mark"><Logo /></span>Copilot</div>
+          <div className="brand"><span className="brand-mark"><Logo /></span>Pete’s Trading</div>
           <div style={{ display: "flex", gap: 6 }}>
-            <span className={`pill ${m.cls}`}><span className="dot" />{m.badge}</span>
+            <span className={`pill ${m.cls}`} title={m.badge}><span className="dot" />{m.short}</span>
             {s.autoTrade.enabled && <span className="pill accent">Auto</span>}
             {s.emergencyStop.active ? <span className="pill bad">Stopped</span> : stale ? <span className="pill bad">Data stale</span> : null}
           </div>
@@ -140,7 +140,7 @@ function TokenScreen({ onSave }: { onSave: (t: string) => void }) {
   return (
     <div className="app login">
       <div className="card">
-        <div className="brand" style={{ marginBottom: 14 }}><span className="brand-mark"><Logo /></span>Copilot</div>
+        <div className="brand" style={{ marginBottom: 14 }}><span className="brand-mark"><Logo /></span>Pete’s Trading</div>
         <p className="muted" style={{ fontSize: 14 }}>Enter your app access token. It is stored only on this device and is not a broker credential.</p>
         <div className="field">
           <input className="input" type="password" autoComplete="current-password" value={t} onChange={(e) => setT(e.target.value)} placeholder="Access token" />

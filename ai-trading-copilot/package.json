@@ -2,7 +2,7 @@
   "name": "ai-trading-copilot",
   "version": "0.1.0",
   "private": true,
-  "description": "AI Trading Copilot – Phase 1 demo. Simulated data, simulated broker, human approval for every entry. Live trading is disabled.",
+  "description": "Pete’s Trading – ETF trading assistant for Trading 212 with approvals or auto mode, strict risk limits.",
   "type": "module",
   "engines": {
     "node": ">=20"

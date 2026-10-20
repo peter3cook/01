@@ -5,9 +5,9 @@ export type AppState = DashboardSnapshot & { authRequired?: boolean; outage: boo
 
 /** How the app is connected, for labels. */
 export function modeInfo(s: Pick<AppState, "mode">) {
-  if (s.mode === "live") return { key: "live", badge: "Live · Real money", cls: "bad", simulated: false };
-  if (s.mode === "paper") return { key: "paper", badge: "Practice · Trading 212", cls: "accent", simulated: false };
-  return { key: "sim", badge: "Demo · Simulated", cls: "sim", simulated: true };
+  if (s.mode === "live") return { key: "live", badge: "Live · Real money", short: "LIVE", cls: "bad", simulated: false };
+  if (s.mode === "paper") return { key: "paper", badge: "Practice · Trading 212", short: "Practice", cls: "accent", simulated: false };
+  return { key: "sim", badge: "Demo · Simulated", short: "Demo", cls: "sim", simulated: true };
 }
 
 /** What the UI can ask for. The UI never talks to a broker or holds credentials. */

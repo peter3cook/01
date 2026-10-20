@@ -48,7 +48,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- header ---------- */
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 0 14px; position: sticky; top: 0; z-index: 5; background: linear-gradient(var(--bg) 75%, transparent); }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -0.02em; font-size: 17px; }
+.brand { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-weight: 650; letter-spacing: -0.02em; font-size: 17px; }
 .brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--card-2); display: grid; place-items: center; border: 1px solid var(--line); }
 .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; background: var(--card-2); border: 1px solid var(--line); color: var(--text-2); white-space: nowrap; }
 .pill.sim { color: var(--warn); background: var(--warn-soft); border-color: transparent; }

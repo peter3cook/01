@@ -1,6 +1,6 @@
 # Architecture
 
-AI Trading Copilot is split into small modules with one job each. The rule that holds it together: **nothing that can make a mistake on its own is allowed to place an order.** The strategy only suggests, the AI only explains, the risk engine only checks, and orders go out only after your approval and a second risk check.
+Pete’s Trading is split into small modules with one job each. The rule that holds it together: **nothing that can make a mistake on its own is allowed to place an order.** The strategy only suggests, the AI only explains, the risk engine only checks, and orders go out only after your approval and a second risk check.
 
 ## Module map
 
