@@ -7,20 +7,23 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Yellowhammer Creative is a UK design studio for UX-led websites, social media, SEO and digital marketing. Websites from £199.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <style>
-/* Layout concept: a designer's working canvas. Light paper ground, framed selections,
-   live cursors and redlines; client work shown as real device mockups. */
+/* Layout concept: a colourful, UX-led studio. Big type, colour-blocked sections,
+   client work on vivid stages, and the design process (cursors, notes, wireframes) on show. */
 :root {
-  --paper: #FAFAF8;
+  --paper: #F6F4EF;
   --white: #FFFFFF;
-  --graphite: #18181B;
-  --ink-2: #4A4A52;
-  --slate: #6B6B73;
-  --hairline: #E4E4E0;
-  --line: #D4D4CF;
-  --canvas: #F1F1EE;
-  --selection: #2E5BFF;
+  --ink: #141414;
+  --ink-2: #45454D;
+  --slate: #696970;
+  --hairline: #E3E1DA;
+  --line: #D2CFC6;
+  --coral: #FF6B4A;
+  --lilac: #C8B8FF;
+  --mint: #A9E8CC;
+  --butter: #FFE27A;
+  --cobalt: #2A47F5;
   --redline: #D63D23;
   --note: #FFF1B8;
   --device: #1D1D1F;
@@ -28,91 +31,80 @@
   --mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --cond: 'Archivo', 'Arial Narrow', Arial, sans-serif;
-  --gutter: clamp(16px, 5vw, 72px);
+  --gutter: clamp(16px, 4vw, 56px);
   color-scheme: light;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--graphite); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, p, figure { margin: 0; }
 h1, h2, h3 { text-wrap: balance; }
 a { color: inherit; }
-a:hover { color: var(--selection); }
-:focus-visible { outline: 2px solid var(--selection); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
 svg { display: block; }
-.wrap { max-width: 1440px; margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
-.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--slate); }
-.skip { position: absolute; left: -9999px; top: 8px; background: var(--graphite); color: var(--white); padding: 8px 12px; border-radius: 6px; }
+.wrap { max-width: 1520px; margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--white); padding: 8px 12px; border-radius: 6px; }
 .skip:focus { left: 8px; z-index: 20; }
 
-/* Selection frame */
-.frame { position: relative; display: inline-block; box-shadow: inset 0 0 0 2px var(--selection); padding: 0 .12em; }
-.frame i { position: absolute; width: 9px; height: 9px; background: var(--white); box-shadow: inset 0 0 0 2px var(--selection); }
-.frame i:nth-of-type(1) { top: -5px; left: -5px; } .frame i:nth-of-type(2) { top: -5px; right: -5px; }
-.frame i:nth-of-type(3) { bottom: -5px; left: -5px; } .frame i:nth-of-type(4) { bottom: -5px; right: -5px; }
-.frame--sm { box-shadow: inset 0 0 0 1.5px var(--selection); padding: 2px 9px; }
-.frame--sm i { width: 7px; height: 7px; box-shadow: inset 0 0 0 1.5px var(--selection); }
-.frame--sm i:nth-of-type(1) { top: -4px; left: -4px; } .frame--sm i:nth-of-type(2) { top: -4px; right: -4px; }
-.frame--sm i:nth-of-type(3) { bottom: -4px; left: -4px; } .frame--sm i:nth-of-type(4) { bottom: -4px; right: -4px; }
-.tag { display: inline-block; background: var(--selection); color: var(--white); font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0; line-height: 1; padding: 5px 7px; border-radius: 3px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-
 /* Buttons */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 10px; font: 500 16px/1 var(--sans); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease; }
-.btn--dark { background: var(--graphite); color: var(--white); }
-.btn--dark:hover { color: var(--white); background: #000; transform: translateY(-1px); }
-.btn--light { background: var(--white); color: var(--graphite); box-shadow: inset 0 0 0 1px var(--line); }
-.btn--light:hover { color: var(--graphite); box-shadow: inset 0 0 0 1.5px var(--selection); }
-.btn--sm { min-height: 44px; padding: 0 18px; font-size: 15px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border-radius: 999px; font: 500 16px/1 var(--sans); text-decoration: none; transition: transform .2s ease, background-color .2s ease, color .2s ease; }
+.btn svg { transition: transform .2s ease; }
+.btn:hover svg { transform: translateX(3px); }
+.btn--ink { background: var(--ink); color: var(--white); }
+.btn--ink:hover { background: var(--cobalt); }
+.btn--ghost { box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--white); }
+.btn--sm { min-height: 44px; padding: 0 20px; font-size: 15px; }
 
 /* Header */
-.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(250,250,248,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--hairline); }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(246,244,239,.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 11; background: var(--paper); }
-.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; padding-block: 16px; }
-.logo { text-decoration: none; }
-.logo b { font-weight: 600; font-size: 23px; letter-spacing: -.055em; line-height: 1.2; }
-.nav { display: flex; flex-wrap: wrap; gap: 0 26px; font-size: 15px; }
-.nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
-.status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--slate); }
-.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #1FA463; box-shadow: 0 0 0 3px rgba(31,164,99,.18); }
-.header-right { display: flex; align-items: center; gap: 18px; }
-@media (max-width: 900px) { .status { display: none; } }
-@media (max-width: 720px) { .nav { order: 3; width: 100%; gap: 0 20px; border-top: 1px solid var(--hairline); } }
+.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 28px; padding-block: 14px; }
+.logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 650; font-size: 23px; letter-spacing: -.055em; }
+.nav { display: flex; flex-wrap: wrap; gap: 0 4px; font-size: 15px; }
+.nav a { text-decoration: none; display: inline-block; padding: 10px 14px; border-radius: 999px; transition: background-color .2s ease; }
+.nav a:hover { background: var(--white); }
+@media (max-width: 760px) { .nav { order: 3; width: 100%; margin-left: -14px; } }
 
 /* Hero */
-.hero { padding-block: clamp(36px, 6vw, 84px) clamp(40px, 6vw, 80px); }
-.hero h1 { font-weight: 600; font-size: clamp(46px, 8.2vw, 132px); line-height: .95; letter-spacing: -.06em; }
-.hero h1 .frame { margin-top: .12em; transition: width .45s cubic-bezier(.2,.8,.2,1); white-space: nowrap; vertical-align: top; }
-.hero h1 .word { display: inline-block; transition: opacity .2s ease, transform .2s ease; }
-.hero h1 .word.is-out { opacity: 0; transform: translateY(.12em); }
-.hero h1 .tag { position: absolute; left: -2px; top: calc(100% + 10px); }
-.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr); gap: 40px 56px; align-items: end; margin-top: clamp(56px, 6vw, 80px); }
+.hero { padding-block: clamp(28px, 5vw, 72px) clamp(48px, 6vw, 96px); }
+.hero h1 { font-weight: 650; font-size: clamp(48px, 9vw, 150px); line-height: .92; letter-spacing: -.065em; max-width: 11.5ch; }
+.hero h1 .pill { display: inline-block; vertical-align: top; white-space: nowrap; margin-top: .06em; padding: 0 .28em .04em; border-radius: 999px; background: var(--coral); color: var(--ink); transition: width .5s cubic-bezier(.2,.8,.2,1), background-color .5s ease, color .5s ease; overflow: hidden; }
+.hero h1 .word { display: inline-block; transition: opacity .2s ease, transform .25s ease; }
+.hero h1 .word.is-out { opacity: 0; transform: translateY(.25em); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 40px 56px; align-items: end; margin-top: clamp(40px, 5vw, 72px); }
 .hero__side { display: flex; flex-direction: column; gap: 26px; }
-.hero__lede { font-size: 19px; color: var(--ink-2); max-width: 46ch; }
+.hero__lede { font-size: 19px; color: var(--ink-2); max-width: 44ch; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .price-note { font-family: var(--mono); font-size: 13px; color: var(--slate); }
-.price-note b { color: var(--graphite); font-weight: 500; }
+.price-note b { color: var(--ink); font-weight: 500; }
 @media (max-width: 980px) { .hero__grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* Design canvas */
-.canvas { position: relative; border-radius: 16px; background-color: var(--canvas); background-image: radial-gradient(var(--line) 1px, transparent 1px); background-size: 18px 18px; box-shadow: inset 0 0 0 1px var(--hairline); padding: 44px clamp(16px, 3vw, 36px) 36px; overflow: hidden; }
-.canvas__label { position: absolute; top: 14px; left: 18px; font-family: var(--mono); font-size: 11px; color: var(--slate); }
-.boards { display: grid; grid-template-columns: minmax(0, 2.3fr) minmax(0, .9fr) minmax(0, 1fr); gap: clamp(14px, 2.4vw, 28px); align-items: start; }
-.board { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.board__name { font-family: var(--mono); font-size: 11px; color: var(--slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.board__art { position: relative; background: var(--white); box-shadow: 0 1px 2px rgba(24,24,27,.06), 0 12px 32px rgba(24,24,27,.08); container-type: inline-size; overflow: hidden; }
-.board--selected .board__art { overflow: visible; }
-.board--selected .board__art::after { content: ""; position: absolute; inset: -1px; box-shadow: 0 0 0 1.5px var(--selection); pointer-events: none; }
-.board--selected .board__name { color: var(--selection); }
-@media (max-width: 640px) { .boards { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .boards .board:first-child { grid-column: 1 / -1; } }
+/* Collage stage */
+.stage { position: relative; border-radius: 32px; background: var(--lilac); padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 56px); overflow: hidden; min-height: 460px; }
+.stage__grid { position: relative; display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, .95fr) minmax(0, 1fr); gap: clamp(14px, 2.4vw, 28px); align-items: center; }
+.ccard { position: relative; min-width: 0; background: var(--white); border-radius: 14px; overflow: hidden; container-type: inline-size; box-shadow: 0 2px 4px rgba(20,20,20,.06), 0 24px 48px rgba(20,20,20,.16); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.ccard--a { transform: rotate(-2.5deg); }
+.ccard--b { transform: rotate(4deg) translateY(-6%); border-radius: 20px; }
+.ccard--c { transform: rotate(-5deg) translateY(10%); }
+.stage:hover .ccard--a { transform: rotate(-1deg) translateY(-4px); }
+.stage:hover .ccard--b { transform: rotate(2deg) translateY(-8%); }
+.stage:hover .ccard--c { transform: rotate(-3deg) translateY(8%); }
+.seal { position: absolute; z-index: 4; right: clamp(10px, 3vw, 36px); top: clamp(10px, 3vw, 30px); width: clamp(96px, 11vw, 140px); aspect-ratio: 1; }
+.seal svg { width: 100%; height: 100%; animation: spin 18s linear infinite; }
+.seal b { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: clamp(18px, 2vw, 26px); letter-spacing: -.04em; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 640px) { .stage__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .stage__grid .ccard--a { grid-column: 1 / -1; } .ccard--c { transform: rotate(-4deg); } }
 
-.cursor { position: absolute; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
-.cursor span { margin: -3px 0 0 14px; color: var(--white); font-size: 12px; font-weight: 500; padding: 3px 8px; border-radius: 3px 10px 10px 10px; white-space: nowrap; }
-.cursor--us span { background: var(--selection); } .cursor--you span { background: var(--redline); }
+.cursor { position: absolute; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
+.cursor span { margin: -3px 0 0 14px; color: var(--white); font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 3px 10px 10px 10px; white-space: nowrap; }
+.cursor--us span { background: var(--cobalt); } .cursor--you span { background: var(--coral); color: var(--ink); }
 .cursor--us { animation: driftA 9s ease-in-out infinite; }
 .cursor--you { animation: driftB 11s ease-in-out infinite; }
 @keyframes driftA { 0%,100% { transform: translate(0,0); } 35% { transform: translate(-60px, 40px); } 70% { transform: translate(-20px, 90px); } }
 @keyframes driftB { 0%,100% { transform: translate(0,0); } 40% { transform: translate(80px, -30px); } 75% { transform: translate(30px, -70px); } }
-.sticky { position: absolute; z-index: 2; width: 150px; background: var(--note); padding: 10px 12px 12px; border-radius: 3px; font-size: 13px; line-height: 1.35; box-shadow: 0 3px 10px rgba(24,24,27,.10); transform: rotate(-2.5deg); }
+.sticky { position: absolute; z-index: 4; width: 156px; background: var(--note); padding: 10px 12px 12px; border-radius: 3px; font-size: 13px; line-height: 1.35; box-shadow: 0 4px 12px rgba(20,20,20,.14); transform: rotate(-3deg); }
 .sticky small { display: block; font-family: var(--mono); font-size: 10px; color: var(--slate); margin-bottom: 4px; }
 
 /* Mini brand: Hearth Bakery (desktop, sized in container units) */
@@ -204,28 +196,32 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .phone { position: relative; width: 100%; aspect-ratio: 9 / 19.2; border: clamp(5px, .9vw, 9px) solid var(--device); border-radius: clamp(22px, 3.4vw, 40px); overflow: hidden; background: var(--white); container-type: inline-size; box-shadow: 0 30px 60px rgba(24,24,27,.18); }
 .phone::before { content: ""; position: absolute; z-index: 2; top: 3cqw; left: 50%; transform: translateX(-50%); width: 30cqw; height: 8cqw; border-radius: 99px; background: var(--device); }
 
-/* Sections */
-.section { padding-block: clamp(72px, 10vw, 140px); border-top: 1px solid var(--hairline); }
-.section--white { background: var(--white); }
-.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; margin-bottom: clamp(36px, 5vw, 64px); }
-.head h2 { font-weight: 600; font-size: clamp(38px, 5vw, 72px); line-height: 1; letter-spacing: -.055em; max-width: 15ch; }
-.head p { max-width: 40ch; color: var(--ink-2); }
+
 
 /* Ticker */
-.ticker { border-block: 1px solid var(--hairline); background: var(--white); overflow: hidden; padding-block: 18px; }
-.ticker__track { display: flex; gap: 40px; width: max-content; animation: tick 40s linear infinite; font-size: clamp(22px, 2.6vw, 34px); font-weight: 500; letter-spacing: -.04em; white-space: nowrap; }
-.ticker__track span { display: inline-flex; align-items: center; gap: 40px; }
-.ticker__track span::after { content: ""; width: 8px; height: 8px; background: var(--white); box-shadow: inset 0 0 0 1.5px var(--selection); }
+.ticker { background: var(--cobalt); color: var(--white); overflow: hidden; padding-block: 22px; }
+.ticker__track { display: flex; gap: 36px; width: max-content; animation: tick 45s linear infinite; font-size: clamp(26px, 3.4vw, 48px); font-weight: 600; letter-spacing: -.05em; white-space: nowrap; }
+.ticker__track span { display: inline-flex; align-items: center; gap: 36px; }
+.ticker__track span::after { content: ""; width: .32em; height: .32em; border-radius: 50%; background: var(--butter); }
+.ticker__track span:nth-child(3n+2)::after { background: var(--coral); }
+.ticker__track span:nth-child(3n)::after { background: var(--mint); }
 @keyframes tick { to { transform: translateX(-50%); } }
 
-/* Wireframe / design toggle */
-.study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 40px 64px; align-items: center; }
-.study__copy { display: flex; flex-direction: column; gap: 22px; }
-.study__copy h2 { font-weight: 600; font-size: clamp(38px, 5vw, 72px); line-height: 1; letter-spacing: -.055em; }
-.study__copy p { color: var(--ink-2); max-width: 42ch; }
-.seg { display: inline-flex; padding: 4px; border-radius: 12px; background: var(--canvas); box-shadow: inset 0 0 0 1px var(--hairline); align-self: flex-start; }
-.seg button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent; font: 500 15px var(--sans); color: var(--ink-2); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--white); color: var(--graphite); box-shadow: 0 1px 2px rgba(24,24,27,.10), 0 0 0 1px var(--hairline); }
+/* Sections */
+.section { padding-block: clamp(80px, 11vw, 160px); }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; margin-bottom: clamp(40px, 5vw, 72px); }
+.head h2, .big { font-weight: 650; font-size: clamp(42px, 6.4vw, 104px); line-height: .95; letter-spacing: -.06em; max-width: 14ch; }
+.head p { max-width: 40ch; color: var(--ink-2); }
+.dot { display: inline-block; width: .2em; height: .2em; border-radius: 50%; margin-left: .04em; }
+
+/* Process: wireframe / design */
+.process { background: var(--mint); overflow: hidden; }
+.study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 40px 64px; align-items: center; }
+.study__copy { display: flex; flex-direction: column; gap: 24px; }
+.study__copy p { color: #1F3D33; max-width: 42ch; }
+.seg { display: inline-flex; padding: 5px; border-radius: 999px; background: rgba(255,255,255,.55); align-self: flex-start; }
+.seg button { min-height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: transparent; font: 500 15px var(--sans); color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
 .checks { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
 .checks div { display: flex; gap: 12px; align-items: baseline; }
 .checks span { font-family: var(--mono); font-size: 12px; color: var(--redline); min-width: 22px; }
@@ -242,93 +238,103 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .wire .img { position: relative; background: #F4F4F2; border: 1px dashed var(--line); border-radius: 1.4cqw; overflow: hidden; }
 .wire .img::before, .wire .img::after { content: ""; position: absolute; left: 50%; top: 50%; width: 140%; height: 1px; background: var(--line); transform: translate(-50%,-50%) rotate(32deg); }
 .wire .img::after { transform: translate(-50%,-50%) rotate(-32deg); }
-.anno { position: absolute; z-index: 2; font-family: var(--sans); font-size: max(10px, 1.25cqw); line-height: 1.3; color: var(--graphite); background: var(--note); padding: .8cqw 1.1cqw; border-radius: .4cqw; box-shadow: 0 2px 6px rgba(24,24,27,.12); max-width: 22cqw; }
+.anno { position: absolute; z-index: 2; font-family: var(--sans); font-size: max(10px, 1.25cqw); line-height: 1.3; color: var(--ink); background: var(--note); padding: .8cqw 1.1cqw; border-radius: .4cqw; box-shadow: 0 2px 6px rgba(20,20,20,.12); max-width: 22cqw; }
 .anno b { font-family: var(--mono); font-weight: 500; color: var(--redline); margin-right: .4em; }
 .ring { position: absolute; z-index: 1; border: 1.5px dashed var(--redline); border-radius: .8cqw; }
 @media (max-width: 980px) { .study { grid-template-columns: minmax(0, 1fr); } }
 
 /* Work */
 .work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); }
-.case { display: flex; flex-direction: column; gap: 16px; text-decoration: none; }
+.case { display: flex; flex-direction: column; gap: 18px; text-decoration: none; }
 .case--wide { grid-column: 1 / -1; }
-.case__stage { position: relative; border-radius: 18px; overflow: hidden; padding: clamp(24px, 5vw, 72px) clamp(20px, 5vw, 80px) 0; display: flex; justify-content: center; align-items: flex-end; min-height: 300px; transition: box-shadow .2s ease; }
-.case:hover .case__stage { box-shadow: inset 0 0 0 2px var(--selection); }
+.case__stage { position: relative; border-radius: 32px; overflow: hidden; padding: clamp(28px, 5vw, 80px) clamp(20px, 5vw, 88px) 0; display: flex; justify-content: center; align-items: flex-end; min-height: 320px; }
+.case__stage > * { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.case:hover .case__stage > *:not(.serp) { transform: translateY(-10px); }
 .case__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; }
-.case__meta h3 { font-size: 22px; font-weight: 600; letter-spacing: -.035em; }
+.case__meta h3 { font-size: clamp(22px, 2vw, 28px); font-weight: 650; letter-spacing: -.04em; }
 .case__meta p { font-size: 15px; color: var(--ink-2); flex-basis: 100%; max-width: 60ch; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font-family: var(--mono); font-size: 11px; padding: 4px 8px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); color: var(--ink-2); }
-.chip--concept { background: var(--note); box-shadow: none; color: var(--graphite); }
-.duo { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 0; align-items: end; width: 100%; max-width: 1040px; }
+.chip { font-family: var(--mono); font-size: 11px; padding: 5px 10px; border-radius: 999px; background: var(--white); color: var(--ink-2); }
+.chip--concept { background: var(--ink); color: var(--white); }
+.duo { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: end; width: 100%; max-width: 1080px; }
 .duo .phone { margin-left: -38%; margin-bottom: -12%; width: 138%; }
 .pair { display: flex; gap: clamp(12px, 3vw, 28px); align-items: flex-end; width: 100%; max-width: 480px; }
 .pair > div { flex: 1; min-width: 0; }
 .pair > div:first-child { transform: translateY(8%); }
 .single { width: 100%; max-width: 260px; transform: translateY(10%); }
-.serp { position: absolute; z-index: 2; right: clamp(16px, 4vw, 56px); top: clamp(16px, 4vw, 48px); width: min(46%, 380px); background: var(--white); border-radius: 12px; padding: 14px 16px 16px; box-shadow: 0 20px 40px rgba(24,24,27,.14); display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
-.serp__q { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--hairline); color: var(--graphite); }
+.serp { position: absolute; z-index: 2; right: clamp(16px, 4vw, 56px); top: clamp(16px, 4vw, 48px); width: min(44%, 380px); background: var(--white); border-radius: 16px; padding: 14px 16px 16px; box-shadow: 0 24px 48px rgba(20,20,20,.22); display: flex; flex-direction: column; gap: 10px; font-size: 13px; transform: rotate(2deg); }
+.serp__q { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--hairline); }
 .serp__q svg { flex-shrink: 0; }
-.serp__r { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 8px; }
-.serp__r--top { background: #F2F5FF; box-shadow: inset 0 0 0 1.5px var(--selection); }
+.serp__r { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 10px; }
+.serp__r--top { background: #EEF1FF; }
 .serp__r small { font-family: var(--mono); font-size: 11px; color: var(--slate); }
 .serp__r b { color: #1F3FB8; font-weight: 500; font-size: 14px; }
 .serp__r span { color: var(--ink-2); font-size: 12px; line-height: 1.4; }
 .serp__r--dim { opacity: .45; }
 .serp__r--dim b { color: var(--ink-2); }
-@media (max-width: 860px) { .work { grid-template-columns: minmax(0, 1fr); } .serp { position: relative; right: auto; top: auto; width: 100%; margin-bottom: 20px; } .case--wide .case__stage { flex-direction: column; align-items: stretch; } }
+.rank { position: absolute; right: -10px; top: -10px; width: 34px; height: 34px; border-radius: 50%; background: var(--butter); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+@media (max-width: 860px) { .work { grid-template-columns: minmax(0, 1fr); } .serp { position: relative; right: auto; top: auto; width: 100%; margin-bottom: 20px; transform: none; } .case--wide .case__stage { flex-direction: column; align-items: stretch; } }
 
 /* Services */
-.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--graphite); }
-.service { padding: 26px 24px 30px 0; display: flex; flex-direction: column; gap: 12px; }
-.service + .service { padding-left: 24px; border-left: 1px solid var(--hairline); }
-.service .ico { width: 44px; height: 44px; border-radius: 10px; background: var(--canvas); display: grid; place-items: center; }
-.service h3 { font-size: 24px; font-weight: 600; letter-spacing: -.04em; line-height: 1.1; }
-.service p { color: var(--ink-2); font-size: 15px; flex: 1; }
-.service .from { font-family: var(--mono); font-size: 13px; padding-top: 12px; border-top: 1px dashed var(--line); }
-.service .from b { color: var(--selection); font-weight: 500; }
-@media (max-width: 980px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } .service:nth-child(3) { padding-left: 0; border-left: 0; } .service:nth-child(n+3) { border-top: 1px solid var(--hairline); } }
-@media (max-width: 560px) { .services { grid-template-columns: minmax(0, 1fr); } .service, .service + .service { padding-left: 0; border-left: 0; } .service + .service { border-top: 1px solid var(--hairline); } }
+.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.service { border-radius: 28px; padding: 28px; min-height: 380px; display: flex; flex-direction: column; gap: 14px; transition: transform .3s ease; }
+.service:hover { transform: translateY(-6px) rotate(-.6deg); }
+.service .num { font-family: var(--mono); font-size: 12px; }
+.service .ico { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.6); display: grid; place-items: center; }
+.service h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 650; letter-spacing: -.05em; line-height: 1.05; margin-top: auto; }
+.service p { font-size: 15px; }
+.service .from { font-family: var(--mono); font-size: 13px; padding-top: 14px; border-top: 1px solid rgba(20,20,20,.18); }
+.service .from b { font-weight: 500; }
+@media (max-width: 1100px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .services { grid-template-columns: minmax(0, 1fr); } .service { min-height: 0; } }
 
-/* Why it's affordable */
-.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.why > div { background: var(--paper); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 1px var(--hairline); }
-.why .measure { display: flex; align-items: center; gap: 8px; color: var(--redline); font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
-.why .measure i { flex: 1; height: 1px; background: var(--redline); }
+/* Why: colour band */
+.why-band { background: var(--cobalt); color: var(--white); }
+.why-band .head p { color: #D9DEFF; }
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.why > div { display: flex; flex-direction: column; gap: 12px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.35); }
+.why .measure { display: flex; align-items: center; gap: 8px; color: var(--butter); font-family: var(--mono); font-size: 12px; }
+.why .measure i { flex: 1; height: 1px; background: var(--butter); }
 .why .measure em { font-style: normal; }
-.why h3 { font-size: 22px; font-weight: 600; letter-spacing: -.03em; }
-.why p { color: var(--ink-2); font-size: 15px; }
+.why h3 { font-size: 26px; font-weight: 650; letter-spacing: -.04em; }
+.why p { color: #D9DEFF; font-size: 16px; }
 @media (max-width: 860px) { .why { grid-template-columns: minmax(0, 1fr); } }
 
 /* Pricing */
-.pricing { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 20px; align-items: stretch; }
-.plan { background: var(--white); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 1px var(--hairline); }
-.plan--lead { position: relative; box-shadow: inset 0 0 0 2px var(--selection); }
-.plan--lead > i { position: absolute; width: 10px; height: 10px; background: var(--white); box-shadow: inset 0 0 0 2px var(--selection); }
-.plan--lead > i:nth-of-type(1) { top: -4px; left: -4px; } .plan--lead > i:nth-of-type(2) { top: -4px; right: -4px; }
-.plan--lead > i:nth-of-type(3) { bottom: -4px; left: -4px; } .plan--lead > i:nth-of-type(4) { bottom: -4px; right: -4px; }
-.plan .label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--slate); }
-.plan .amount { font-size: clamp(48px, 5vw, 72px); font-weight: 600; letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums; }
-.plan .amount small { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--slate); }
-.plan ul { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); font-size: 15px; flex: 1; }
+.pricing { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 16px; align-items: stretch; }
+.plan { background: var(--white); border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 10px; }
+.plan--lead { background: var(--coral); }
+.plan .label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.plan .amount { font-size: clamp(56px, 6vw, 96px); font-weight: 650; letter-spacing: -.07em; line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .amount small { font-size: 16px; font-weight: 400; letter-spacing: 0; }
+.plan ul { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; flex: 1; }
 .plan li { display: flex; gap: 10px; }
-.plan li::before { content: ""; flex-shrink: 0; margin-top: 8px; width: 6px; height: 6px; background: var(--white); box-shadow: inset 0 0 0 1.5px var(--selection); }
+.plan li::before { content: "→"; flex-shrink: 0; }
 @media (max-width: 900px) { .pricing { grid-template-columns: minmax(0, 1fr); } }
 
 /* CTA */
-.cta .canvas { padding: clamp(56px, 9vw, 120px) clamp(20px, 6vw, 96px); min-height: 460px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; justify-content: center; }
-.cta h2 { font-weight: 600; font-size: clamp(42px, 7vw, 112px); line-height: .95; letter-spacing: -.06em; max-width: 13ch; }
-.contact-line { font-family: var(--mono); font-size: 13px; color: var(--slate); }
-.contact-line b { color: var(--graphite); font-weight: 500; user-select: all; }
-@media (max-width: 700px) { .cta .sticky { display: none; } }
+.cta-panel { position: relative; border-radius: 40px; background: var(--butter); padding: clamp(56px, 9vw, 130px) clamp(24px, 6vw, 96px); overflow: hidden; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; }
+.cta-panel h2 { font-weight: 650; font-size: clamp(46px, 8vw, 136px); line-height: .92; letter-spacing: -.065em; max-width: 12ch; }
+.cta-panel h2 em { font-family: var(--serif); font-weight: 400; letter-spacing: -.02em; }
+.contact-line { font-family: var(--mono); font-size: 13px; }
+.contact-line b { font-weight: 500; user-select: all; }
+.cta-panel .sticky--l { background: var(--lilac); right: 7%; top: 14%; transform: rotate(4deg); }
+.cta-panel .sticky--m { background: var(--mint); right: 16%; bottom: 12%; }
+@media (max-width: 760px) { .cta-panel .sticky { display: none; } }
 
-.site-footer { border-top: 1px solid var(--hairline); padding-block: 32px 40px; font-size: 14px; color: var(--slate); }
-.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
-.site-footer nav a { text-decoration: none; padding: 10px 0; display: inline-block; }
+/* Footer */
+.site-footer { padding-block: 56px 32px; overflow: hidden; }
+.foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; font-size: 15px; color: var(--ink-2); }
+.foot-top nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.foot-top nav a { text-decoration: none; padding: 10px 0; display: inline-block; }
+.foot-top nav a:hover { color: var(--cobalt); }
+.wordmark { margin-top: 24px; font-weight: 700; font-size: clamp(44px, 13.2vw, 200px); line-height: .8; letter-spacing: -.075em; white-space: nowrap; }
+.wordmark span { color: var(--coral); }
+.foot-bottom { margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: var(--mono); font-size: 12px; color: var(--slate); }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor, .ticker__track { animation: none; }
-  .hero h1 .frame, .hero h1 .word, .toggle-stage .layer { transition: none; }
+  .cursor, .ticker__track, .seal svg { animation: none; }
+  .hero h1 .pill, .hero h1 .word, .toggle-stage .layer, .ccard, .case__stage > *, .service { transition: none; }
 }
 </style>
 </head>
@@ -337,17 +343,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="#main" aria-label="Yellowhammer Creative, home"><span class="frame frame--sm"><i></i><i></i><i></i><i></i><b>yellowhammer</b></span></a>
+    <a class="logo" href="#main" aria-label="Yellowhammer Creative, home">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#FF6B4A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      yellowhammer
+    </a>
     <nav class="nav" aria-label="Main">
       <a href="#work">Work</a>
       <a href="#process">Process</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
     </nav>
-    <div class="header-right">
-      <span class="status">Booking [MONTH]</span>
-      <a class="btn btn--dark btn--sm" href="#contact">Start a project</a>
-    </div>
+    <a class="btn btn--ink btn--sm" href="#contact">Start a project</a>
   </div>
 </header>
 
@@ -355,65 +361,59 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
-      <p class="eyebrow" style="margin-bottom: 22px;">UX-led design studio · Websites, social &amp; SEO</p>
-      <h1 id="hero-title">Websites designed around your <span class="frame" id="swapFrame"><i></i><i></i><i></i><i></i><span class="word" id="swapWord">customers.</span><span class="tag" id="swapTag" aria-hidden="true">H1 · Fill</span></span></h1>
+      <p class="eyebrow" style="margin-bottom: 24px; color: var(--slate);">UX-led design studio · Websites, social &amp; SEO · UK</p>
+      <h1 id="hero-title">Websites designed around your <span class="pill" id="swapPill"><span class="word" id="swapWord">customers.</span></span></h1>
 
       <div class="hero__grid">
         <div class="hero__side">
           <p class="hero__lede">We plan every page around what your customers need to do, then make it look like it cost ten times more. Senior UX and visual design, produced efficiently with AI-assisted workflows.</p>
           <div class="actions">
-            <a class="btn btn--dark" href="#contact">Start a project</a>
-            <a class="btn btn--light" href="#work">See the work</a>
+            <a class="btn btn--ink" href="#contact">Start a project <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+            <a class="btn btn--ghost" href="#work">See the work</a>
           </div>
           <p class="price-note">Websites from <b>£199</b> · Fixed prices · No surprises</p>
         </div>
 
-        <div class="canvas" aria-label="A design canvas showing three client projects in progress">
-          <span class="canvas__label">Yellowhammer / Client work / In progress</span>
-          <div class="boards">
-            <div class="board board--selected">
-              <span class="board__name">Hearth Bakery — Desktop 1440</span>
-              <div class="board__art">
-                <div class="hearth">
-                  <nav><b>Hearth</b><span><span>Bread</span><span>Cakes</span><span>Visit</span><span class="pill">Order</span></span></nav>
-                  <main>
-                    <div class="copy">
-                      <h4>Bread worth getting <em>up early</em> for.</h4>
-                      <p>Slow-fermented sourdough, baked through the night and ready from 7am.</p>
-                      <div class="ctas"><span>Order for collection</span><span>Find us</span></div>
-                    </div>
-                    <div class="art">
-                      <span class="badge">Baked<br>from<br>4am</span>
-                      <svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="96" cy="78" rx="82" ry="40" fill="#B5572B"/><ellipse cx="96" cy="70" rx="74" ry="30" fill="#C66A38"/><path d="M50 62 q14 -14 30 -4 M86 56 q14 -14 30 -4 M122 62 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="104" rx="30" ry="16" fill="#8E3F1C"/><path d="M146 100 q8 -8 18 -2" stroke="#E9C08F" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
-                    </div>
-                  </main>
-                </div>
-              </div>
-            </div>
-            <div class="board">
-              <span class="board__name">Movewell — Book</span>
-              <div class="board__art" style="aspect-ratio: 9 / 17;">
-                <div class="move">
-                  <div class="top">movewell<i></i></div>
-                  <h4>Book a session</h4>
-                  <div class="card">
-                    <b>Tue 14 · Sports massage</b>
-                    <div class="slots"><span>09:00</span><span class="on">10:30</span><span>13:15</span><span>15:00</span><span>16:30</span><span>18:00</span></div>
+        <div class="stage" aria-label="A collage of client designs in progress">
+          <div class="seal" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id="sealPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><circle cx="100" cy="100" r="98" fill="#FFE27A"/><text font-family="Geist Mono, monospace" font-size="15" letter-spacing="3.4" fill="#141414"><textPath href="#sealPath">WEBSITES FROM £199 · UX-LED DESIGN · </textPath></text></svg>
+            <b>£199</b>
+          </div>
+          <div class="stage__grid">
+            <div class="ccard ccard--a">
+              <div class="hearth">
+                <nav><b>Hearth</b><span><span>Bread</span><span>Cakes</span><span>Visit</span><span class="pill">Order</span></span></nav>
+                <main>
+                  <div class="copy">
+                    <h4>Bread worth getting <em>up early</em> for.</h4>
+                    <p>Slow-fermented sourdough, baked through the night and ready from 7am.</p>
+                    <div class="ctas"><span>Order for collection</span><span>Find us</span></div>
                   </div>
-                  <div class="book">Confirm 10:30</div>
-                </div>
+                  <div class="art">
+                    <span class="badge">Baked<br>from<br>4am</span>
+                    <svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="96" cy="78" rx="82" ry="40" fill="#B5572B"/><ellipse cx="96" cy="70" rx="74" ry="30" fill="#C66A38"/><path d="M50 62 q14 -14 30 -4 M86 56 q14 -14 30 -4 M122 62 q12 -12 26 -2" stroke="#F3D9B5" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="104" rx="30" ry="16" fill="#8E3F1C"/><path d="M146 100 q8 -8 18 -2" stroke="#E9C08F" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+                  </div>
+                </main>
               </div>
             </div>
-            <div class="board">
-              <span class="board__name">Studio Nine — Instagram</span>
-              <div class="board__art" style="aspect-ratio: 4 / 5; display: grid; place-items: center; background: #2A1B24; color: #F2C7C2; padding: 12%; text-align: center;">
-                <span style="font-family: var(--serif); font-style: italic; font-size: 13cqw; line-height: 1;">New season,<br>new you.</span>
+            <div class="ccard ccard--b" style="aspect-ratio: 9 / 17;">
+              <div class="move">
+                <div class="top">movewell<i></i></div>
+                <h4>Book a session</h4>
+                <div class="card" style="box-shadow: none; transform: none; border-radius: 4cqw; padding: 4.4cqw; display: flex; flex-direction: column; gap: 3cqw;">
+                  <b style="font-size: 4.2cqw;">Tue 14 · Sports massage</b>
+                  <div class="slots"><span>09:00</span><span class="on">10:30</span><span>13:15</span><span>15:00</span><span>16:30</span><span>18:00</span></div>
+                </div>
+                <div class="book">Confirm 10:30</div>
               </div>
+            </div>
+            <div class="ccard ccard--c" style="aspect-ratio: 4 / 5; display: grid; place-items: center; background: #2A1B24; color: #F2C7C2; padding: 12%; text-align: center;">
+              <span style="font-family: var(--serif); font-style: italic; font-size: 14cqw; line-height: 1;">New season, new you.</span>
             </div>
           </div>
-          <div class="sticky" style="left: 46%; bottom: 22px;"><small>Note · Hearth</small>Order button above the fold on every page.</div>
-          <div class="cursor cursor--us" style="right: 26%; top: 34%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#2E5BFF" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Yellowhammer</span></div>
-          <div class="cursor cursor--you" style="left: 18%; bottom: 20%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#D63D23" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>You</span></div>
+          <div class="sticky" style="left: 40%; bottom: 18px;"><small>Note · Hearth</small>Order button above the fold on every page.</div>
+          <div class="cursor cursor--us" style="right: 28%; top: 30%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#2A47F5" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Yellowhammer</span></div>
+          <div class="cursor cursor--you" style="left: 16%; bottom: 18%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#FF6B4A" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>You</span></div>
         </div>
       </div>
     </div>
@@ -426,11 +426,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </div>
 
-  <section class="section" id="process" aria-labelledby="study-title">
+  <section class="section process" id="process" aria-labelledby="study-title">
     <div class="wrap study">
       <div class="study__copy">
         <p class="eyebrow">How we work</p>
-        <h2 id="study-title">Every pixel has a reason.</h2>
+        <h2 id="study-title" class="big">Every pixel has a reason.</h2>
         <p>Before we pick a colour, we plan what each page must do. Flip between the wireframe and the finished design to see the thinking behind it.</p>
         <div class="seg" role="group" aria-label="View">
           <button type="button" id="viewDesign" aria-pressed="true">Design</button>
@@ -465,14 +465,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             </div>
             <div class="layer layer--wire" aria-hidden="true">
               <div class="wire">
-                <div class="bar"><span class="box" style="width: 9cqw; height: 2.6cqw;"></span><span style="display: flex; gap: 1.6cqw;"><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 10cqw; height: 1.6cqw;"></span><span class="box" style="width: 6cqw; height: 2.6cqw; background: var(--graphite);"></span></span></div>
+                <div class="bar"><span class="box" style="width: 9cqw; height: 2.6cqw;"></span><span style="display: flex; gap: 1.6cqw;"><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 5cqw; height: 1.6cqw;"></span><span class="box" style="width: 10cqw; height: 1.6cqw;"></span><span class="box" style="width: 6cqw; height: 2.6cqw; background: var(--ink);"></span></span></div>
                 <main>
                   <div class="col">
                     <span class="box" style="height: 5.6cqw; width: 92%;"></span>
                     <span class="box" style="height: 5.6cqw; width: 70%;"></span>
                     <span class="box" style="height: 1.4cqw; width: 80%; margin-top: 1cqw;"></span>
                     <span class="box" style="height: 1.4cqw; width: 60%;"></span>
-                    <span style="display: flex; gap: 1cqw; margin-top: 1cqw;"><span class="box" style="height: 3.6cqw; width: 16cqw; background: var(--graphite);"></span><span class="box" style="height: 3.6cqw; width: 9cqw;"></span></span>
+                    <span style="display: flex; gap: 1cqw; margin-top: 1cqw;"><span class="box" style="height: 3.6cqw; width: 16cqw; background: var(--ink);"></span><span class="box" style="height: 3.6cqw; width: 9cqw;"></span></span>
                   </div>
                   <div class="img"></div>
                 </main>
@@ -491,16 +491,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="section section--white" id="work" aria-labelledby="work-title">
+  <section class="section" id="work" aria-labelledby="work-title">
     <div class="wrap">
       <div class="head">
-        <h2 id="work-title">Selected work</h2>
+        <h2 id="work-title">Selected work<span class="dot" style="background: var(--coral);"></span></h2>
         <p>Concept projects that show how we work across websites, social and search. Client case studies are added as projects launch.</p>
       </div>
 
       <div class="work">
         <a class="case case--wide" href="#contact">
-          <div class="case__stage" style="background: #EFE4D2;">
+          <div class="case__stage" style="background: var(--coral);">
             <div class="duo">
               <div class="laptop">
                 <div class="laptop__screen">
@@ -541,14 +541,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </a>
 
         <a class="case" href="#contact">
-          <div class="case__stage" style="background: #DDEBE5;">
+          <div class="case__stage" style="background: var(--lilac);">
             <div class="pair">
               <div class="phone">
                 <div class="move">
                   <div class="top">movewell<i></i></div>
                   <h4>Move better. Hurt less.</h4>
                   <p>Physiotherapy and sports massage, with appointments that fit around work.</p>
-                  <div class="card"><b>Next available</b><span style="font-size: 4.2cqw; color: #3D5A52;">Tue 14 · 10:30</span></div>
+                  <div class="card" style="transform: none; border-radius: 4cqw; padding: 4.4cqw; display: flex; flex-direction: column; gap: 3cqw; box-shadow: none;"><b style="font-size: 4.2cqw;">Next available</b><span style="font-size: 4.2cqw; color: #3D5A52;">Tue 14 · 10:30</span></div>
                   <div class="book">Book a session</div>
                 </div>
               </div>
@@ -556,11 +556,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
                 <div class="move">
                   <div class="top">movewell<i></i></div>
                   <h4 style="font-size: 10cqw;">Choose a time</h4>
-                  <div class="card">
-                    <b>Tue 14 · Sports massage</b>
+                  <div class="card" style="transform: none; border-radius: 4cqw; padding: 4.4cqw; display: flex; flex-direction: column; gap: 3cqw; box-shadow: none;">
+                    <b style="font-size: 4.2cqw;">Tue 14 · Sports massage</b>
                     <div class="slots"><span>09:00</span><span class="on">10:30</span><span>13:15</span><span>15:00</span><span>16:30</span><span>18:00</span></div>
                   </div>
-                  <div class="card"><b>45 min · [PRICE]</b><span style="font-size: 3.8cqw; color: #3D5A52;">With [THERAPIST]</span></div>
                   <div class="book">Confirm 10:30</div>
                 </div>
               </div>
@@ -574,7 +573,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </a>
 
         <a class="case" href="#contact">
-          <div class="case__stage" style="background: #F2DCD8;">
+          <div class="case__stage" style="background: var(--butter);">
             <div class="single">
               <div class="phone">
                 <div class="nine">
@@ -603,9 +602,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </a>
 
         <a class="case case--wide" href="#contact">
-          <div class="case__stage" style="background: #DEDAD3;">
+          <div class="case__stage" style="background: var(--mint);">
             <div class="serp" aria-hidden="true">
-              <div class="serp__q"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#6B6B73" stroke-width="2"/><path d="M15.5 15.5 L21 21" stroke="#6B6B73" stroke-width="2" stroke-linecap="round"/></svg>builders near me</div>
+              <span class="rank">#1</span>
+              <div class="serp__q"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#696970" stroke-width="2"/><path d="M15.5 15.5 L21 21" stroke="#696970" stroke-width="2" stroke-linecap="round"/></svg>builders near me</div>
               <div class="serp__r serp__r--top"><small>northandstone.co.uk</small><b>North &amp; Stone | Builders in [TOWN]</b><span>Extensions, renovations and new homes. Free site visits and fixed quotes.</span></div>
               <div class="serp__r serp__r--dim"><small>example-builder.co.uk</small><b>Local Builder</b><span>Home page</span></div>
             </div>
@@ -642,33 +642,37 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="section" id="services" aria-labelledby="services-title">
+  <section class="section" id="services" aria-labelledby="services-title" style="padding-top: 0;">
     <div class="wrap">
       <div class="head">
-        <h2 id="services-title">Everything you need to be found and chosen.</h2>
+        <h2 id="services-title">Everything you need to be found and chosen<span class="dot" style="background: var(--cobalt);"></span></h2>
         <p>Start with a website, then add social, search and marketing when you’re ready.</p>
       </div>
       <div class="services">
-        <article class="service">
-          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span>
+        <article class="service" style="background: var(--coral);">
+          <span class="num">01</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#141414" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span>
           <h3>Websites</h3>
           <p>Fast, mobile-first sites built around the one thing you want visitors to do: call, book, buy or visit.</p>
           <span class="from">From <b>£199</b></span>
         </article>
-        <article class="service">
-          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.8" cy="7.2" r=".8" fill="#18181B"/></svg></span>
+        <article class="service" style="background: var(--lilac);">
+          <span class="num">02</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#141414" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.8" cy="7.2" r=".8" fill="#141414"/></svg></span>
           <h3>Social media</h3>
           <p>Planned, on-brand posts that keep you visible and give people a reason to follow.</p>
           <span class="from">From <b>[£ / MONTH]</b></span>
         </article>
-        <article class="service">
-          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></span>
+        <article class="service" style="background: var(--mint);">
+          <span class="num">03</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#141414" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></span>
           <h3>SEO</h3>
           <p>Show up when nearby customers search for exactly what you offer.</p>
           <span class="from">From <b>[£ / MONTH]</b></span>
         </article>
-        <article class="service">
-          <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#18181B" stroke-width="1.6" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
+        <article class="service" style="background: var(--butter);">
+          <span class="num">04</span>
+          <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#141414" stroke-width="1.6" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
           <h3>Digital marketing</h3>
           <p>Email, ads and campaigns that turn attention into enquiries you can measure.</p>
           <span class="from">From <b>[£ / MONTH]</b></span>
@@ -677,7 +681,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="section section--white" aria-labelledby="why-title">
+  <section class="section why-band" aria-labelledby="why-title">
     <div class="wrap">
       <div class="head">
         <h2 id="why-title">Big-agency craft. Small-studio invoice.</h2>
@@ -706,16 +710,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
       <div class="head">
-        <h2 id="pricing-title">Clear prices. No surprises.</h2>
+        <h2 id="pricing-title">Clear prices. No surprises<span class="dot" style="background: var(--coral);"></span></h2>
         <p>Fixed-price packages, so you know exactly what you’re paying before we start.</p>
       </div>
       <div class="pricing">
         <div class="plan plan--lead">
-          <i></i><i></i><i></i><i></i>
           <span class="label">Website</span>
           <span class="amount">£199 <small>from</small></span>
           <ul><li>[What’s included, item 1]</li><li>[What’s included, item 2]</li><li>[What’s included, item 3]</li></ul>
-          <a class="btn btn--dark" href="#contact" style="margin-top: 12px;">Start with a website</a>
+          <a class="btn btn--ink" href="#contact" style="margin-top: 12px;">Start with a website</a>
         </div>
         <div class="plan">
           <span class="label">Social media</span>
@@ -731,18 +734,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="section cta" id="contact" aria-labelledby="contact-title">
+  <section class="section" id="contact" aria-labelledby="contact-title" style="padding-top: 0;">
     <div class="wrap">
-      <div class="canvas">
-        <span class="canvas__label">Your project / Frame 1</span>
+      <div class="cta-panel">
         <p class="eyebrow">Now booking projects for [MONTH]</p>
-        <h2 id="contact-title">Let’s design something your customers will <span class="frame"><i></i><i></i><i></i><i></i>love.</span></h2>
+        <h2 id="contact-title">Let’s make something your customers will <em>love.</em></h2>
         <div class="actions">
-          <a class="btn btn--dark" href="#contact">Start a project</a>
+          <a class="btn btn--ink" href="#contact">Start a project <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
           <span class="contact-line">Email <b>[EMAIL]</b> · Call <b>[PHONE]</b></span>
         </div>
-        <div class="sticky" style="right: 8%; top: 18%; transform: rotate(3deg);"><small>Note</small>Bring your logo, a few photos and a coffee.</div>
-        <div class="sticky" style="right: 18%; bottom: 14%;"><small>Note</small>Not sure what you need? We’ll help you work it out.</div>
+        <div class="sticky sticky--l"><small>Note</small>Bring your logo, a few photos and a coffee.</div>
+        <div class="sticky sticky--m"><small>Note</small>Not sure what you need? We’ll help you work it out.</div>
+        <div class="cursor cursor--us" style="right: 30%; bottom: 16%;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 2 L3 19 L7.5 14.8 L10.6 21.6 L13.6 20.3 L10.6 13.6 L17 13.6 Z" fill="#2A47F5" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Yellowhammer</span></div>
       </div>
     </div>
   </section>
@@ -751,44 +754,44 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 <footer class="site-footer">
   <div class="wrap">
-    <span>© 2026 Yellowhammer Creative · Designed &amp; built in the UK</span>
-    <nav aria-label="Footer"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav>
+    <div class="foot-top">
+      <span>A UK design studio for ambitious small businesses.</span>
+      <nav aria-label="Footer"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav>
+    </div>
+    <div class="wordmark" aria-hidden="true">yellowhammer<span>.</span></div>
+    <div class="foot-bottom"><span>© 2026 Yellowhammer Creative</span><span>Designed &amp; built in the UK</span></div>
   </div>
 </footer>
 
 <script>
 (function () {
-  // Hero: the selected word cycles, and the selection frame resizes to fit it.
+  // Hero: the highlighted word cycles, and its colour pill resizes to fit.
   var words = ['customers.', 'bookings.', 'phone calls.', 'online orders.', 'regulars.'];
-  var frame = document.getElementById('swapFrame');
+  var colours = [['#FF6B4A', '#141414'], ['#A9E8CC', '#141414'], ['#C8B8FF', '#141414'], ['#FFE27A', '#141414'], ['#2A47F5', '#FFFFFF']];
+  var pill = document.getElementById('swapPill');
   var word = document.getElementById('swapWord');
-  var tag = document.getElementById('swapTag');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var i = 0;
-  function size() {
-    var r = frame.getBoundingClientRect();
-    tag.textContent = 'H1 · ' + Math.round(r.width) + ' × ' + Math.round(r.height);
-  }
   function next() {
     i = (i + 1) % words.length;
-    var from = frame.offsetWidth;
+    var from = pill.offsetWidth;
     word.classList.add('is-out');
     setTimeout(function () {
       word.textContent = words[i];
-      frame.style.width = 'auto';
-      var to = frame.offsetWidth;
-      frame.style.width = from + 'px';
-      frame.offsetWidth;
-      frame.style.width = to + 'px';
+      pill.style.width = 'auto';
+      var to = pill.offsetWidth;
+      pill.style.width = from + 'px';
+      pill.offsetWidth;
+      pill.style.width = to + 'px';
+      pill.style.backgroundColor = colours[i][0];
+      pill.style.color = colours[i][1];
       word.classList.remove('is-out');
-      setTimeout(function () { frame.style.width = ''; size(); }, 480);
-    }, 200);
+      setTimeout(function () { pill.style.width = ''; }, 520);
+    }, 220);
   }
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(size); } else { size(); }
-  window.addEventListener('resize', size);
   if (!reduce) { setInterval(next, 2600); }
 
-  // Case study: switch between the design and the wireframe.
+  // Process: switch between the finished design and its wireframe.
   var stage = document.getElementById('stage');
   var bD = document.getElementById('viewDesign');
   var bW = document.getElementById('viewWire');
