@@ -1,0 +1,41 @@
+{
+  "name": "ai-trading-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Trading Copilot – Phase 1 demo. Simulated data, simulated broker, human approval for every entry. Live trading is disabled.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run build:web && npm run dev:server",
+    "dev:server": "tsx watch src/server/index.ts",
+    "dev:web": "vite",
+    "build": "npm run build:web && npm run build:server",
+    "build:web": "vite build",
+    "build:server": "esbuild src/server/index.ts --bundle --platform=node --format=esm --packages=external --target=node20 --outfile=dist/server/index.js",
+    "build:preview": "vite build --mode standalone",
+    "start": "node dist/server/index.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.136.0",
+    "@fastify/static": "^10.1.6",
+    "fastify": "^5.12.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^6.4.4",
+    "vitest": "^3.2.7"
+  }
+}
