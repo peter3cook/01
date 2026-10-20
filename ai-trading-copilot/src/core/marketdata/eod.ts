@@ -2,6 +2,7 @@ import type { Bar, DataHealth, Instrument, Quote } from "../types";
 import { round } from "../util/math";
 import { sessionsBehind } from "../util/marketHours";
 import type { MarketDataProvider } from "./provider";
+import { plausible } from "./universe";
 
 /** A source of daily OHLC bars, already converted to GBP and sorted oldest first. */
 export interface DailyBarSource {
@@ -78,6 +79,7 @@ export class EodMarketData implements MarketDataProvider {
     const d = this.data.get(symbol);
     const last = d?.bars.at(-1);
     if (!d || !last) return d?.error ?? "No price data yet";
+    if (!plausible(symbol, last.c)) return `Price £${last.c} outside the expected range – check data units`;
     const behind = sessionsBehind(this.lastBarDate(symbol)!, now);
     if (behind > this.maxSessionsBehind) return `Price data ${behind} sessions old`;
     if (d.mark && Math.abs(d.mark.price - last.c) / last.c > this.maxDivergence) {

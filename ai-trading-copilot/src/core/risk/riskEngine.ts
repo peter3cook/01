@@ -6,6 +6,14 @@ import { HARD_CEILINGS } from "./limits";
 export interface EntryRiskContext {
   now: number;
   tradingMode: string;
+  /** Live mode additionally requires the operator's explicit acknowledgement in config. */
+  liveArmed?: boolean;
+  /** Market open for new entries (always true in the simulator). */
+  marketOpen?: boolean;
+  /** Overrides limits.maxDataAgeMs (end-of-day data has its own session-based check). */
+  maxQuoteAgeMs?: number;
+  /** Money currently invested by the app (for the capital cap). */
+  investedGBP?: number;
   limits: RiskLimits;
   emergencyStopActive: boolean;
   instrument: Instrument | undefined;
@@ -22,6 +30,8 @@ export interface EntryRiskContext {
     /** Price at proposal time, used for the drift check at execution. */
     proposedPrice?: number;
     leverage?: number;
+    /** LIMIT order: entryPrice is the worst-case fill price. */
+    isLimit?: boolean;
   };
   cash: number;
   equity: number;
@@ -46,7 +56,10 @@ export function validateEntry(ctx: EntryRiskContext): RiskDecision {
   const checks: RiskCheck[] = [];
   const add = (id: string, label: string, passed: boolean, detail: string) => checks.push({ id, label, passed, detail });
 
-  add("demo_mode", "Demo mode only", ctx.tradingMode === "demo", `Mode: ${ctx.tradingMode}`);
+  const modeOk =
+    ctx.tradingMode === "demo" || ctx.tradingMode === "simulated" || ctx.tradingMode === "paper" || (ctx.tradingMode === "live" && ctx.liveArmed === true);
+  add("mode", "Trading mode allowed", modeOk, ctx.tradingMode === "live" && !ctx.liveArmed ? "Live mode not armed" : `Mode: ${ctx.tradingMode}`);
+  if (ctx.marketOpen !== undefined) add("market_open", "Market open for new trades", ctx.marketOpen, ctx.marketOpen ? "Open" : "Outside the entry window");
   add("emergency_stop", "Emergency stop off", !ctx.emergencyStopActive, ctx.emergencyStopActive ? "Emergency stop is ACTIVE" : "Off");
 
   // Limits must never exceed the hard ceilings, whatever was loaded from config/state.
@@ -65,8 +78,10 @@ export function validateEntry(ctx: EntryRiskContext): RiskDecision {
 
   const q = ctx.quote;
   const age = q ? ctx.now - q.asOf : Infinity;
-  const fresh = !!q && ctx.dataHealth.ok && age <= limits.maxDataAgeMs && q.bid > 0 && q.ask >= q.bid;
-  add("data_fresh", "Market data fresh and valid", fresh, q ? `${Math.round(age / 1000)}s old (max ${limits.maxDataAgeMs / 1000}s) · ${ctx.dataHealth.detail}` : "No quote");
+  const maxAge = ctx.maxQuoteAgeMs ?? limits.maxDataAgeMs;
+  const fresh = !!q && ctx.dataHealth.ok && age <= maxAge && q.bid > 0 && q.ask >= q.bid;
+  const ageText = age < 120_000 ? `${Math.round(age / 1000)}s old` : `${(age / 3_600_000).toFixed(1)}h old`;
+  add("data_fresh", "Market data fresh and valid", fresh, q ? `${ageText} · ${ctx.dataHealth.detail}` : "No usable quote (stale, missing or failed price check)");
 
   add("long_only", "Buy-only entry (no shorting)", order.side === "BUY", order.side);
   add("no_leverage", "No leverage, margin or CFDs", (order.leverage ?? 1) === 1, `Leverage ${order.leverage ?? 1}x`);
@@ -74,7 +89,8 @@ export function validateEntry(ctx: EntryRiskContext): RiskDecision {
   const qtyOk = Number.isFinite(order.quantity) && order.quantity > 0;
   add("quantity", "Positive quantity", qtyOk, `${order.quantity}`);
 
-  const entry = q ? q.ask : order.entryPrice;
+  // Limit orders can't fill above their limit, so the limit is the worst case.
+  const entry = order.isLimit || !q ? order.entryPrice : q.ask;
   const notional = round(order.quantity * entry);
   const totalCash = notional + order.estCosts.explicitTotal / 2;
   add("cash", "Paid from available cash", totalCash <= ctx.cash + 1e-9, `Needs £${totalCash.toFixed(2)}, cash £${ctx.cash.toFixed(2)}`);
@@ -88,6 +104,8 @@ export function validateEntry(ctx: EntryRiskContext): RiskDecision {
 
   add("position_size", `Position ≤ £${limits.maxPositionValueGBP.toFixed(2)}`, notional <= limits.maxPositionValueGBP + 1e-9, `£${notional.toFixed(2)}`);
   add("min_order", `Order ≥ £${limits.minOrderValueGBP.toFixed(2)}`, notional >= limits.minOrderValueGBP, `£${notional.toFixed(2)}`);
+  const invested = ctx.investedGBP ?? 0;
+  add("capital_cap", `Total invested ≤ £${limits.maxCapitalGBP.toFixed(2)}`, invested + notional <= limits.maxCapitalGBP + 1e-9, `£${invested.toFixed(2)} + £${notional.toFixed(2)}`);
 
   const costRatio = risk > 0 ? costs / risk : 1;
   add("cost_ratio", `Costs ≤ ${Math.round(limits.maxCostToRiskRatio * 100)}% of risk`, costRatio <= limits.maxCostToRiskRatio, `${(costRatio * 100).toFixed(1)}% (£${costs.toFixed(4)})`);
@@ -105,7 +123,7 @@ export function validateEntry(ctx: EntryRiskContext): RiskDecision {
     ctx.inFlightSymbols.has(order.symbol);
   add("duplicate", "No existing position or open order in this ETF", !dup, dup ? "Already holding / order open" : "None");
 
-  if (order.proposedPrice !== undefined && q) {
+  if (order.proposedPrice !== undefined && q && !order.isLimit) {
     const driftBps = (Math.abs(q.ask - order.proposedPrice) / order.proposedPrice) * 10_000;
     add("price_drift", `Price moved ≤ ${limits.maxPriceDriftBps}bps since proposal`, driftBps <= limits.maxPriceDriftBps, `${driftBps.toFixed(1)}bps`);
   }

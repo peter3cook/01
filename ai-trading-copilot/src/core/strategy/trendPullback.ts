@@ -84,3 +84,6 @@ export function evaluateTrend(
     target: round(price + p.targetAtr * a),
   };
 }
+
+/** Same rules on DAILY bars: daily ranges are wider, so the volatility ceiling is higher. */
+export const DAILY_STRATEGY: StrategyParams = { ...DEFAULT_STRATEGY, maxAtrPct: 3 };

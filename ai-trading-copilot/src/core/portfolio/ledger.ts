@@ -80,7 +80,8 @@ export function applyFill(
 export function positionViews(state: EngineState, md: MarketDataProvider): PositionView[] {
   return state.positions.map((p) => {
     const q = md.quote(p.symbol);
-    const mark = q?.bid ?? p.avgPrice;
+    // Prefer the broker's own latest price; otherwise the bid (what you could sell for).
+    const mark = p.markPrice ?? q?.bid ?? p.avgPrice;
     const marketValue = round(p.quantity * mark);
     const unrealisedPnl = round(marketValue - p.costBasis);
     return {

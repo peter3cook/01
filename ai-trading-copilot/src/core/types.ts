@@ -275,6 +275,10 @@ export interface Position {
   feesPaid: number;
   /** Broker-side stop-loss order protecting this position. */
   stopOrderId?: string;
+  /** Our order record id for the stop order. */
+  stopRecordId?: string;
+  /** Exit order in progress (prevents duplicate sells). */
+  exitRecordId?: string;
   /** Opened outside this app (e.g. in the Trading 212 app). Never auto-traded. */
   external?: boolean;
   /** Latest broker price (GBP) when available. */

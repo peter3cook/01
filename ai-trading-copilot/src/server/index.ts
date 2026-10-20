@@ -13,7 +13,16 @@ async function main() {
     throw e;
   }
 
-  const { app, engine, saveMarket } = await buildApp(config);
+  const banner =
+    config.tradingMode === "live"
+      ? "LIVE – REAL MONEY (Trading 212)"
+      : config.tradingMode === "paper"
+        ? "PAPER – Trading 212 practice account, real prices"
+        : "SIMULATED – made-up prices, paper broker";
+  console.log(`AI Trading Copilot starting in ${banner}`);
+
+  const { app, engine, saveMarket, refreshPrices } = await buildApp(config);
+  await refreshPrices();
   await engine.tick();
 
   let ticking = false;
@@ -29,10 +38,12 @@ async function main() {
     }
   }, config.tickIntervalMs);
   const marketTimer = setInterval(saveMarket, 30_000);
+  const priceTimer = config.tradingMode === "simulated" ? undefined : setInterval(() => void refreshPrices().catch(() => {}), 3600_000);
 
   const shutdown = async () => {
     clearInterval(timer);
     clearInterval(marketTimer);
+    if (priceTimer) clearInterval(priceTimer);
     saveMarket();
     await app.close();
     process.exit(0);
@@ -42,9 +53,10 @@ async function main() {
 
   await app.listen({ port: config.port, host: config.host });
   console.log(
-    `AI Trading Copilot (DEMO MODE · simulated data · live trading disabled) on http://${config.host}:${config.port}` +
+    `Listening on http://${config.host}:${config.port}` +
       `\n  AI explanations: ${config.anthropicApiKey ? config.claudeModel : "rules template (no ANTHROPIC_API_KEY)"}` +
-      `\n  Auth: ${config.accessToken ? "bearer token required" : "OFF (local development only)"}`,
+      `\n  Auth: ${config.accessToken ? "access token required" : "OFF (simulated local development only)"}` +
+      `\n  Phone notifications: ${config.notify.ntfyUrl ? "ntfy" : config.notify.telegramToken ? "Telegram" : "OFF"}`,
   );
 }
 

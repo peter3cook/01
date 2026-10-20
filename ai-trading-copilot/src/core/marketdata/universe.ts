@@ -28,3 +28,25 @@ export const SIM_PARAMS: Record<string, { seedPrice: number; vol: number }> = {
   IGLT: { seedPrice: 10.5, vol: 0.0006 },
   INRG: { seedPrice: 6, vol: 0.0028 },
 };
+
+/**
+ * Rough real-world price level in GBP, used ONLY as a sanity band (÷4 to ×4).
+ * A price outside the band means bad data or a pence/pound mix-up, and the fund
+ * is not traded. Review yearly.
+ */
+export const APPROX_PRICE_GBP: Record<string, number> = {
+  VUSA: 95,
+  VWRP: 120,
+  ISF: 8.5,
+  VMID: 33,
+  EQQQ: 450,
+  CSP1: 550,
+  SGLN: 50,
+  IGLT: 10.5,
+  INRG: 6,
+};
+
+export function plausible(symbol: string, priceGBP: number): boolean {
+  const ref = APPROX_PRICE_GBP[symbol];
+  return ref === undefined ? false : priceGBP >= ref / 4 && priceGBP <= ref * 4;
+}
