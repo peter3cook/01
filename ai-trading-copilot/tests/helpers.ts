@@ -83,6 +83,7 @@ export class FakeAsyncBroker implements BrokerAdapter {
   sellFills: Array<{ brokerOrderId: string; type: string; price: number; quantity: number; at: number; feesGBP: number }> = [];
   failNextPlace = false;
   found?: string;
+  private byId = new Map<string, OrderRequest>();
   private seq = 100;
 
   async placeOrder(req: OrderRequest): Promise<BrokerOrderResult> {
@@ -92,6 +93,7 @@ export class FakeAsyncBroker implements BrokerAdapter {
     }
     this.placed.push(req);
     const id = String(++this.seq);
+    this.byId.set(id, req);
     this.updates.set(id, { state: "PENDING", brokerStatus: "NEW" });
     return { status: "ACCEPTED", brokerOrderId: id, simulated: false };
   }
@@ -117,8 +119,19 @@ export class FakeAsyncBroker implements BrokerAdapter {
   lastId() {
     return String(this.seq);
   }
+  /** Fill an order and update holdings, as the real broker would. */
   fill(id: string, price: number, quantity: number, at: number) {
     const f: BrokerFill = { price, quantity, at, fees: { commission: 0, fxFee: 0, stampDuty: 0, explicitTotal: 0, spreadCost: 0 } };
     this.updates.set(id, { state: "FILLED", fill: f, brokerStatus: "FILLED" });
+    const req = this.byId.get(id);
+    if (!req) return;
+    const pos = this.positions.find((p) => p.symbol === req.symbol);
+    if (req.side === "BUY") {
+      if (pos) pos.quantity += quantity;
+      else this.positions.push({ symbol: req.symbol, t212Ticker: req.t212Ticker, quantity, avgPriceGBP: price, currentPriceGBP: price, valueGBP: price * quantity, costGBP: price * quantity });
+    } else if (pos) {
+      pos.quantity -= quantity;
+      if (pos.quantity <= 1e-9) this.positions = this.positions.filter((p) => p !== pos);
+    }
   }
 }

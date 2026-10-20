@@ -68,8 +68,8 @@ export function auditNotifier(notifier: Notifier | undefined, prefix: string, lo
     const n = NOTIFY[e.type];
     if (!notifier || !n) return;
     const key = `${e.type}:${e.message}`;
-    const last = recent.get(key) ?? 0;
-    if (e.at - last < 30 * 60_000) return;
+    const last = recent.get(key);
+    if (last !== undefined && e.at - last < 30 * 60_000) return;
     recent.set(key, e.at);
     notifier.send(`${prefix}${n.title}`, e.message, n.urgent).catch((err) => log(`notification failed: ${(err as Error).message}`));
   };

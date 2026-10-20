@@ -1,8 +1,18 @@
-# AI Trading Copilot – Phase 1 (demo)
+# AI Trading Copilot
 
-A mobile-first trading assistant for a small UK account. It scans liquid UK-listed ETFs, suggests trades using transparent rules, explains them in plain English (optionally with Claude), and **waits for you to approve every new trade on your phone**.
+A mobile-first trading assistant for a small UK account. It scans liquid UK-listed ETFs, suggests trades using transparent rules, explains them in plain English (optionally with Claude), and either **waits for your approval on your phone** or, in **auto mode**, places the trade itself within fixed risk limits.
 
-> **Demo only.** Prices are simulated, fills are simulated, and live trading is not implemented. Nothing here is financial advice. The £1,000 figure is an aspiration, not a forecast. The app never raises risk to chase it.
+It runs in three modes:
+
+| Mode | Prices | Broker | Money |
+| --- | --- | --- | --- |
+| `simulated` (default) | made up | pretend broker | none |
+| `paper` | real, end of day | Trading 212 practice account | none |
+| `live` | real, end of day | Trading 212 Invest / ISA | **real** |
+
+**Going live:** follow [docs/GO_LIVE.md](docs/GO_LIVE.md). Run the practice account first.
+
+> Nothing here is financial advice. Simple trend rules like these often lose small amounts. The £1,000 figure is an aspiration, not a forecast, and the app never raises risk to chase it. Only fund the account with money you're prepared to lose.
 
 | Home | Approval | Scanner | Risk |
 | --- | --- | --- | --- |

@@ -279,6 +279,8 @@ export interface Position {
   stopRecordId?: string;
   /** Exit order in progress (prevents duplicate sells). */
   exitRecordId?: string;
+  /** First time the broker's position list didn't include this holding. */
+  missingSince?: number;
   /** Opened outside this app (e.g. in the Trading 212 app). Never auto-traded. */
   external?: boolean;
   /** Latest broker price (GBP) when available. */

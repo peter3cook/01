@@ -521,23 +521,46 @@ export class CopilotEngine {
     for (const pos of [...this.state.positions]) {
       const b = bySymbol.get(pos.symbol);
       if (b) {
+        pos.missingSince = undefined;
         pos.markPrice = b.currentPriceGBP;
         pos.markAt = now;
         (this.md as { setMark?: (s: string, p: number, t: number) => void }).setMark?.(pos.symbol, b.currentPriceGBP, now);
         if (pos.external) { pos.quantity = b.quantity; pos.costBasis = b.costGBP; pos.avgPrice = b.avgPriceGBP; }
         continue;
       }
-      // Position gone at the broker. If our own stop/exit order filled, reconcileOrders records it.
-      const ours = this.state.orders.find((o) => (o.id === pos.stopRecordId || o.id === pos.exitRecordId) && this.isOpenOrder(o));
-      if (ours) {
-        ours.lastCheckedAt = 0; // check it on the next sync
+      // Position gone at the broker. If our own sell is working, wait for its fill.
+      const exitRec = this.state.orders.find((o) => o.id === pos.exitRecordId && this.isOpenOrder(o));
+      if (exitRec) {
+        exitRec.lastCheckedAt = 0; // check it on the next sync
         continue;
+      }
+      // Our stop may have just filled: check it now.
+      const stopRec = this.state.orders.find((o) => o.id === pos.stopRecordId && this.isOpenOrder(o));
+      if (stopRec?.brokerOrderId && this.broker.getOrderUpdate) {
+        const u = await this.broker.getOrderUpdate(stopRec.brokerOrderId, stopRec.request, stopRec.submittedAt);
+        if (u.state === "FILLED" || (u.state === "CLOSED" && u.fill)) {
+          this.onOrderFilled(stopRec, u.fill!, now);
+          continue;
+        }
       }
       if (pos.external) {
         this.state.positions = this.state.positions.filter((x) => x !== pos);
         continue;
       }
-      // Sold outside the app (e.g. in the Trading 212 app): record the real fills if we can find them.
+      // The broker's position list can lag a fresh fill: only act once it has been
+      // missing on two syncs at least a minute apart.
+      if (pos.missingSince === undefined || now - pos.missingSince < 60_000) {
+        pos.missingSince ??= now;
+        continue;
+      }
+      // Sold outside the app (e.g. in the Trading 212 app). Remove our now-pointless stop first.
+      if (stopRec?.brokerOrderId && this.broker.cancelOrder) {
+        await this.broker.cancelOrder(stopRec.brokerOrderId).catch(() => undefined);
+        stopRec.status = "CANCELLED";
+        stopRec.resolvedAt = now;
+        stopRec.reason = "Position sold outside the app";
+      }
+      // Record the real fills if we can find them.
       const fills = (await this.broker.getSellFills?.(pos.symbol, pos.openedAt).catch(() => [])) ?? [];
       const known = new Set(this.state.orders.map((o) => o.brokerOrderId));
       let recorded = false;
@@ -590,7 +613,8 @@ export class CopilotEngine {
   /** Every managed position must have a stop-loss order resting at the broker. */
   private async ensureStops(now: number) {
     for (const pos of this.state.positions) {
-      if (pos.external || pos.stopOrderId || pos.exitRecordId || pos.stopPrice <= 0) continue;
+      // Skip if protected already, being sold, or not currently showing at the broker.
+      if (pos.external || pos.stopOrderId || pos.exitRecordId || pos.stopPrice <= 0 || pos.missingSince !== undefined) continue;
       const pendingStop = this.state.orders.find((o) => o.id === pos.stopRecordId && this.isOpenOrder(o));
       if (pendingStop) continue;
       const inst = this.md.instrument(pos.symbol);
