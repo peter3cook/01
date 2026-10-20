@@ -1,0 +1,212 @@
+<title>Yellowhammer Logo Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a logo review board. Six animated marks in a grid; one palette bar recolours everything. */
+:root {
+  --bg: #F5F5F2; --surf: #FFFFFF; --ink: #111111; --a: #3B5BFF; --a2: #B8C4FF;
+  --muted: #5E5E66;
+  --sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono', ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+:root[data-p="hedgerow"] { --bg: #F3EFE6; --surf: #FFFFFF; --ink: #1E3A2B; --a: #E9A800; --a2: #C9D8C5; --muted: #4F5E55; }
+:root[data-p="vermilion"] { --bg: #FAFAF7; --surf: #FFFFFF; --ink: #141414; --a: #FF4A1C; --a2: #FFD3C4; --muted: #5E5E66; }
+:root[data-p="dusk"] { --bg: #F4F0FA; --surf: #FFFFFF; --ink: #2B1E3F; --a: #FF8E5E; --a2: #CDBDFF; --muted: #5C5270; }
+:root[data-p="playful"] { --bg: #F6F4EF; --surf: #FFFFFF; --ink: #141414; --a: #FF6B4A; --a2: #A9E8CC; --muted: #5E5E66; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; transition: background-color .4s ease, color .4s ease; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { padding-block: 40px 20px; display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font-size: clamp(36px, 6vw, 72px); line-height: .95; letter-spacing: -.055em; font-weight: 700; text-wrap: balance; }
+.intro { margin: 0; max-width: 60ch; color: var(--muted); }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; transition: background-color .4s ease; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 6; background: var(--bg); }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bar .label { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-right: 6px; }
+.pal { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 10px; border-radius: 999px; border: 0; background: var(--surf); color: var(--ink); font: 500 14px var(--sans); cursor: pointer; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.pal[aria-pressed="true"] { background: var(--ink); color: var(--surf); }
+.sw { display: inline-flex; }
+.sw i { width: 16px; height: 16px; border-radius: 50%; margin-left: -5px; box-shadow: 0 0 0 2px var(--surf); }
+.sw i:first-child { margin-left: 0; }
+.pal[aria-pressed="true"] .sw i { box-shadow: 0 0 0 2px var(--ink); }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-block: 16px 64px; }
+@media (max-width: 1040px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 660px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.opt { background: var(--surf); border-radius: 24px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; transition: background-color .4s ease; }
+.stage { position: relative; border-radius: 16px; background: var(--bg); aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden; transition: background-color .4s ease; }
+.stage .mark { width: 46%; }
+.stage .tag { position: absolute; top: 12px; left: 14px; font-family: var(--mono); font-size: 12px; font-weight: 500; }
+.replay { position: absolute; right: 8px; bottom: 8px; min-width: 44px; min-height: 44px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 500 12px var(--mono); cursor: pointer; padding: 0 12px; }
+.replay:hover { color: var(--ink); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: stretch; }
+.lockup { border-radius: 14px; background: var(--bg); display: flex; align-items: center; gap: 8px; padding: 14px 16px; min-width: 0; font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); letter-spacing: -.06em; white-space: nowrap; overflow: hidden; transition: background-color .4s ease; }
+.lockup .mark { width: 1.6em; flex-shrink: 0; }
+.inv { --m-ink: var(--surf); border-radius: 14px; background: var(--ink); width: 76px; display: grid; place-items: center; transition: background-color .4s ease; }
+.inv .mark { width: 46px; }
+.meta { padding: 4px 6px 6px; display: flex; flex-direction: column; gap: 4px; }
+.meta h2 { margin: 0; font-size: 20px; letter-spacing: -.035em; font-weight: 650; }
+.meta p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.mark { --m-ink: inherit; display: block; height: auto; overflow: visible; }
+.mark .ink { fill: var(--m-ink, var(--ink)); }
+.mark .acc { fill: var(--a); }
+.mark .acc2 { fill: var(--a2); }
+.mark .bgf { fill: var(--surf); }
+.mark .s-ink { stroke: var(--m-ink, var(--ink)); fill: none; }
+.mark .s-acc { stroke: var(--a); fill: none; }
+.inv .mark .bgf { fill: var(--ink); }
+
+/* L1 pen tool */
+.l1 .curve { stroke-dasharray: 100; animation: draw 4.5s ease-in-out infinite; }
+.l1 .handles { animation: fadeIn 4.5s ease-in-out infinite; }
+@keyframes draw { 0% { stroke-dashoffset: 100; } 45%, 100% { stroke-dashoffset: 0; } }
+@keyframes fadeIn { 0%, 40% { opacity: 0; } 55%, 85% { opacity: 1; } 100% { opacity: 0; } }
+/* L2 Y wings */
+.l2 .wl, .l2 .wr { transform-box: view-box; transform-origin: 50px 56px; }
+.l2 .wl { animation: flapL 2.4s ease-in-out infinite; }
+.l2 .wr { animation: flapR 2.4s ease-in-out infinite; }
+@keyframes flapL { 0%, 60%, 100% { transform: rotate(0); } 75% { transform: rotate(16deg); } 88% { transform: rotate(-4deg); } }
+@keyframes flapR { 0%, 60%, 100% { transform: rotate(0); } 75% { transform: rotate(-16deg); } 88% { transform: rotate(4deg); } }
+/* L3 cursor */
+.l3 .ptr { transform-box: fill-box; transform-origin: 0 0; animation: click 2.6s ease-in-out infinite; }
+.l3 .ripple { transform-box: fill-box; transform-origin: center; animation: ripple 2.6s ease-out infinite; }
+@keyframes click { 0%, 30%, 50%, 100% { transform: scale(1); } 40% { transform: scale(.86); } }
+@keyframes ripple { 0%, 38% { transform: scale(.1); opacity: 0; } 42% { opacity: .9; } 80%, 100% { transform: scale(1); opacity: 0; } }
+/* L4 pixels */
+.l4 rect { transform-box: fill-box; transform-origin: center; animation: pop 5s cubic-bezier(.3,1.6,.5,1) infinite; animation-delay: var(--d); }
+@keyframes pop { 0% { transform: scale(0); } 12%, 85% { transform: scale(1); } 100% { transform: scale(0); } }
+/* L5 flapping w */
+.l5 .w { transform-box: fill-box; transform-origin: center; animation: wflap 1.8s ease-in-out infinite; }
+@keyframes wflap { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.45) translateY(10%); } }
+.wordw { display: inline-flex; align-items: baseline; font-weight: 700; letter-spacing: -.06em; white-space: nowrap; }
+.wordw svg { height: .58em; width: .9em; margin: 0 .01em; overflow: visible; }
+.stage .wordw { font-size: clamp(30px, 4.4vw, 52px); }
+/* L6 chat bird */
+.l6 .dot { transform-box: fill-box; transform-origin: center; animation: typing 1.4s ease-in-out infinite; }
+.l6 .dot:nth-of-type(2) { animation-delay: .16s; } .l6 .dot:nth-of-type(3) { animation-delay: .32s; }
+.l6 .body { transform-box: fill-box; transform-origin: 20% 90%; animation: bob 2.8s ease-in-out infinite; }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-30%); } }
+@keyframes bob { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-3deg); } }
+@media (prefers-reduced-motion: reduce) { .mark *, .w { animation: none !important; } .l1 .curve { stroke-dashoffset: 0; } .l1 .handles { opacity: 1; } }
+
+footer.note { padding-block: 0 56px; color: var(--muted); font-size: 15px; }
+</style>
+
+<header class="top wrap">
+  <span class="eyebrow">Yellowhammer Creative · Logo round 2</span>
+  <h1>Six logo ideas. Five colour palettes.</h1>
+  <p class="intro">Each mark is animated, because motion is part of a UX studio’s brand. Tap a palette to recolour every option, then tell me your favourite, for example “L3 with Hedgerow”.</p>
+</header>
+
+<div class="bar">
+  <div class="wrap" role="group" aria-label="Colour palette">
+    <span class="label">Palette</span>
+    <button class="pal" type="button" data-p="electric" aria-pressed="true"><span class="sw"><i style="background:#111111"></i><i style="background:#3B5BFF"></i><i style="background:#B8C4FF"></i></span>Ink &amp; Electric</button>
+    <button class="pal" type="button" data-p="hedgerow" aria-pressed="false"><span class="sw"><i style="background:#1E3A2B"></i><i style="background:#E9A800"></i><i style="background:#C9D8C5"></i></span>Hedgerow</button>
+    <button class="pal" type="button" data-p="vermilion" aria-pressed="false"><span class="sw"><i style="background:#141414"></i><i style="background:#FF4A1C"></i><i style="background:#FFD3C4"></i></span>Vermilion</button>
+    <button class="pal" type="button" data-p="dusk" aria-pressed="false"><span class="sw"><i style="background:#2B1E3F"></i><i style="background:#FF8E5E"></i><i style="background:#CDBDFF"></i></span>Dusk</button>
+    <button class="pal" type="button" data-p="playful" aria-pressed="false"><span class="sw"><i style="background:#FF6B4A"></i><i style="background:#A9E8CC"></i><i style="background:#141414"></i></span>Playful (current)</button>
+  </div>
+</div>
+
+<main class="wrap grid">
+  <article class="opt">
+    <div class="stage"><span class="tag">L1</span><div data-mark="l1" class="big"></div><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><div data-mark="l1"></div>yellowhammer</div><div class="inv"><div data-mark="l1"></div></div></div>
+    <div class="meta"><h2>L1 · Pen tool</h2><p>A bird in flight drawn as one Bézier curve, anchor points and handles showing. Every line is drawn with intent.</p></div>
+  </article>
+
+  <article class="opt">
+    <div class="stage"><span class="tag">L2</span><div data-mark="l2"></div><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><div data-mark="l2"></div>yellowhammer</div><div class="inv"><div data-mark="l2"></div></div></div>
+    <div class="meta"><h2>L2 · Wings up</h2><p>A bold “Y” monogram that is also a bird taking off. Its wings beat once, like a small celebration.</p></div>
+  </article>
+
+  <article class="opt">
+    <div class="stage"><span class="tag">L3</span><div data-mark="l3"></div><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><div data-mark="l3"></div>yellowhammer</div><div class="inv"><div data-mark="l3"></div></div></div>
+    <div class="meta"><h2>L3 · Point &amp; click</h2><p>The mouse pointer, given an eye and a wing. Its tip is the beak, and it clicks. Simple, ownable, unmistakably digital.</p></div>
+  </article>
+
+  <article class="opt">
+    <div class="stage"><span class="tag">L4</span><div data-mark="l4"></div><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><div data-mark="l4"></div>yellowhammer</div><div class="inv"><div data-mark="l4"></div></div></div>
+    <div class="meta"><h2>L4 · Built on the grid</h2><p>A yellowhammer assembled pixel by pixel on a design grid. The accent head nods to the real bird.</p></div>
+  </article>
+
+  <article class="opt">
+    <div class="stage"><span class="tag">L5</span><span class="wordw l5" data-wordw></span><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><span class="wordw l5" data-wordw></span></div><div class="inv"><svg class="mark l5" viewBox="0 0 36 30" aria-hidden="true" style="width: 40px;"><path class="w s-acc" d="M3 6 L11 25 L18 12 L25 25 L33 6" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="meta"><h2>L5 · The flying “w”</h2><p>A pure wordmark. The “w” in yellowhammer is a bird mid-flight, and it flaps. Subtle, witty, easy to use anywhere.</p></div>
+  </article>
+
+  <article class="opt">
+    <div class="stage"><span class="tag">L6</span><div data-mark="l6"></div><button class="replay" type="button">Replay</button></div>
+    <div class="row"><div class="lockup"><div data-mark="l6"></div>yellowhammer</div><div class="inv"><div data-mark="l6"></div></div></div>
+    <div class="meta"><h2>L6 · Chirp</h2><p>A chat bubble that is a bird, typing. Friendly and conversational, and a nod to social media management.</p></div>
+  </article>
+</main>
+
+<footer class="note wrap">All six are drawn as code, so they animate on the website, scale to any size and work as app icons.</footer>
+
+<script>
+(function () {
+  var M = {
+    l1: '<svg class="mark l1" viewBox="0 0 120 80" aria-hidden="true">' +
+        '<path class="curve s-ink" pathLength="100" d="M8 54 C 26 18, 48 16, 60 44 C 72 16, 94 14, 112 34" stroke-width="7" stroke-linecap="round"/>' +
+        '<g class="handles"><path class="s-acc" d="M48 16 L60 44 L72 16" stroke-width="1.6"/><circle class="acc" cx="48" cy="16" r="3"/><circle class="acc" cx="72" cy="16" r="3"/>' +
+        '<rect class="bgf" x="3" y="49" width="10" height="10" style="stroke: var(--a); stroke-width: 2"/><rect class="acc" x="55" y="39" width="10" height="10"/><rect class="bgf" x="107" y="29" width="10" height="10" style="stroke: var(--a); stroke-width: 2"/></g></svg>',
+    l2: '<svg class="mark l2" viewBox="0 0 100 100" aria-hidden="true">' +
+        '<path class="s-ink" d="M50 56 L50 88" stroke-width="15" stroke-linecap="round"/>' +
+        '<path class="wl s-acc" d="M50 56 L20 22" stroke-width="15" stroke-linecap="round"/>' +
+        '<path class="wr s-acc" d="M50 56 L80 22" stroke-width="15" stroke-linecap="round"/>' +
+        '<circle class="ink" cx="50" cy="33" r="9"/></svg>',
+    l3: '<svg class="mark l3" viewBox="0 0 64 64" aria-hidden="true">' +
+        '<circle class="ripple acc2" cx="12" cy="10" r="12"/>' +
+        '<g class="ptr"><path class="acc" d="M12 10 L12 52 L23 41 L31 58 L39 54.5 L31 38 L46 38 Z" style="stroke: var(--m-ink, var(--ink)); stroke-width: 3.2; stroke-linejoin: round"/>' +
+        '<path class="ink" d="M15 30 L15 42 L24 34 Z" opacity=".9"/><circle class="ink" cx="17.5" cy="20" r="2.6"/></g></svg>',
+    l6: '<svg class="mark l6" viewBox="0 0 100 84" aria-hidden="true"><g class="body">' +
+        '<path class="ink" d="M20 52 L4 78 L36 60 Z"/>' +
+        '<rect class="acc" x="10" y="10" width="68" height="52" rx="26"/>' +
+        '<path class="ink" d="M76 28 L95 35 L76 42 Z"/><circle class="ink" cx="64" cy="26" r="3.6"/>' +
+        '<circle class="dot bgf" cx="30" cy="40" r="4.2"/><circle class="dot bgf" cx="43" cy="40" r="4.2"/><circle class="dot bgf" cx="56" cy="40" r="4.2"/></g></svg>'
+  };
+  // L4: pixel bird. H = head (accent), E = eye, B = body, T = tail, K = beak, L = legs.
+  var rows = ['.....HH..', 'T...HHEHK', 'TBBBBBHH.', '.BBBBBB..', '..BBBB...', '...L.L...'];
+  var px = '', n = 0;
+  rows.forEach(function (r, y) { r.split('').forEach(function (c, x) {
+    if (c === '.') return;
+    var cls = c === 'H' ? 'acc' : (c === 'E' ? 'bgf' : 'ink');
+    px += '<rect class="' + cls + '" x="' + (x * 10 + 1) + '" y="' + (y * 10 + 1) + '" width="9" height="9" rx="1.5" style="--d:' + (n++ * 0.05).toFixed(2) + 's"/>';
+  }); });
+  M.l4 = '<svg class="mark l4" viewBox="0 0 92 62" aria-hidden="true">' + px + '</svg>';
+
+  document.querySelectorAll('[data-mark]').forEach(function (el) { el.outerHTML = M[el.getAttribute('data-mark')]; });
+  var W = 'yello<svg viewBox="0 0 36 30" aria-hidden="true"><path class="w" d="M3 6 L11 25 L18 12 L25 25 L33 6" style="fill:none; stroke: var(--a); stroke-width: 5.5; stroke-linecap: round; stroke-linejoin: round"/></svg>hammer';
+  document.querySelectorAll('[data-wordw]').forEach(function (el) { el.innerHTML = W; el.setAttribute('aria-label', 'yellowhammer'); });
+
+  // Palette switcher
+  var btns = document.querySelectorAll('.pal');
+  function setP(p) {
+    if (p === 'electric') { document.documentElement.removeAttribute('data-p'); } else { document.documentElement.setAttribute('data-p', p); }
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-p') === p)); });
+    try { localStorage.setItem('yh-palette', p); } catch (e) {}
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { setP(b.getAttribute('data-p')); }); });
+  try { var saved = localStorage.getItem('yh-palette'); if (saved) setP(saved); } catch (e) {}
+
+  // Replay restarts the animations inside one card.
+  document.querySelectorAll('.replay').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var card = b.closest('.opt');
+      card.querySelectorAll('.mark, .wordw').forEach(function (m) {
+        m.getAnimations ? m.getAnimations({ subtree: true }).forEach(function (a) { a.currentTime = 0; a.play(); }) : null;
+      });
+    });
+  });
+})();
+</script>
