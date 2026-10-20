@@ -272,6 +272,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .case__stage { position: relative; border-radius: 32px; overflow: hidden; padding: clamp(28px, 5vw, 80px) clamp(20px, 5vw, 88px) 0; display: flex; justify-content: center; align-items: flex-end; min-height: 320px; }
 .case__stage > * { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
 .case:hover .case__stage > *:not(.serp) { transform: translateY(-10px); }
+.case__stage--photo { padding: 0; min-height: 0; background: var(--ink); }
+.case__stage--photo img { display: block; width: 100%; height: auto; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.case.case--photo:hover .case__stage.case__stage--photo > img { transform: scale(1.02); }
 .case__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; }
 .case__meta h3 { font-size: clamp(22px, 2vw, 28px); font-weight: 650; letter-spacing: -.04em; }
 .case__meta p { font-size: 15px; color: var(--ink-2); flex-basis: 100%; max-width: 60ch; }
@@ -521,6 +524,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
 
       <div class="work">
+        <a class="case case--wide case--photo" href="#contact">
+          <div class="case__stage case__stage--photo">
+            <img src="img/riverside-roofing.jpg" alt="Riverside Roofing website shown on a laptop and a phone, with service, review, project and quote sections" width="1536" height="1024" loading="lazy">
+          </div>
+          <div class="case__meta">
+            <h3>Riverside Roofing</h3>
+            <div class="chips"><span class="chip">Website</span><span class="chip">Mobile</span><span class="chip">Local SEO</span><span class="chip chip--concept">Example</span></div>
+            <p>A roofing firm in Suffolk: bold photography, a quote button in reach on every screen, and services, reviews and projects laid out so homeowners can decide fast.</p>
+          </div>
+        </a>
+
         <a class="case case--wide" href="#contact">
           <div class="case__stage" style="background: var(--coral);">
             <div class="duo">
