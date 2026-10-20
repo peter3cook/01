@@ -1,8 +1,11 @@
 // Shared domain types. Everything in src/core is environment-agnostic
 // (no Node or browser APIs) so it can run on the server and in the preview.
 
-/** Where a price came from. Phase 1 only ever produces SIMULATED. */
-export type DataSource = "SIMULATED" | "LIVE";
+/** Where a price came from. */
+export type DataSource = "SIMULATED" | "END_OF_DAY" | "LIVE";
+
+/** simulated = sim data + paper broker; paper = real data + Trading 212 practice; live = real money. */
+export type TradingMode = "simulated" | "paper" | "live";
 
 export interface Instrument {
   symbol: string; // LSE ticker, e.g. "VUSA"
@@ -19,6 +22,8 @@ export interface Instrument {
   avgDailyValueGBPm: number;
   /** Fractional quantity precision supported for orders. */
   qtyDecimals: number;
+  /** Unit the broker and data provider quote in. Internally every price is GBP. */
+  priceUnit?: "GBP" | "GBX";
 }
 
 export interface Bar {
@@ -105,6 +110,8 @@ export interface RiskLimits {
   maxPriceDriftBps: number;
   /** How long an approval request stays valid. */
   proposalTtlMs: number;
+  /** Total money the app may have invested at once, whatever the account holds. */
+  maxCapitalGBP: number;
 }
 
 export interface RiskCheck {
@@ -183,8 +190,8 @@ export interface Proposal {
   dataSource: DataSource;
 }
 
-export type OrderStatus = "FILLED" | "ACCEPTED" | "REJECTED" | "ERROR";
-export type TradeReason = "ENTRY" | "STOP_LOSS" | "TAKE_PROFIT" | "MANUAL_CLOSE" | "EMERGENCY_CLOSE";
+export type OrderStatus = "FILLED" | "ACCEPTED" | "REJECTED" | "ERROR" | "CANCELLED";
+export type TradeReason = "ENTRY" | "STOP_LOSS" | "TAKE_PROFIT" | "MANUAL_CLOSE" | "EMERGENCY_CLOSE" | "EXTERNAL";
 
 export interface OrderRequest {
   clientOrderId: string; // idempotency key
@@ -192,8 +199,12 @@ export interface OrderRequest {
   t212Ticker: string;
   side: "BUY" | "SELL";
   quantity: number;
-  type: "MARKET" | "LIMIT";
+  type: "MARKET" | "LIMIT" | "STOP";
+  /** GBP. Converted to the instrument's unit by the broker adapter. */
   limitPrice?: number;
+  /** GBP. For STOP orders. */
+  stopPrice?: number;
+  timeValidity?: "DAY" | "GOOD_TILL_CANCEL";
   reason: TradeReason;
   proposalId?: string;
 }
@@ -213,6 +224,30 @@ export interface BrokerOrderResult {
   simulated: boolean;
 }
 
+/** Latest known state of an order at the broker (for orders that don't fill instantly). */
+export type BrokerOrderUpdate =
+  | { state: "PENDING"; brokerStatus: string }
+  | { state: "FILLED"; fill: BrokerFill; brokerStatus: string }
+  | { state: "CLOSED"; brokerStatus: string; reason: string; fill?: BrokerFill }
+  | { state: "UNKNOWN"; reason: string };
+
+export interface BrokerAccount {
+  cashGBP: number;
+  totalValueGBP: number;
+  investedGBP: number;
+  currency: string;
+}
+
+export interface BrokerPosition {
+  symbol: string;
+  t212Ticker: string;
+  quantity: number;
+  avgPriceGBP: number;
+  currentPriceGBP: number;
+  valueGBP: number;
+  costGBP: number;
+}
+
 export interface OrderRecord {
   id: string;
   request: OrderRequest;
@@ -223,6 +258,9 @@ export interface OrderRecord {
   fill?: BrokerFill;
   reason?: string;
   simulated: boolean;
+  brokerStatus?: string;
+  lastCheckedAt?: number;
+  resolvedAt?: number;
 }
 
 export interface Position {
@@ -235,6 +273,13 @@ export interface Position {
   openedAt: number;
   proposalId?: string;
   feesPaid: number;
+  /** Broker-side stop-loss order protecting this position. */
+  stopOrderId?: string;
+  /** Opened outside this app (e.g. in the Trading 212 app). Never auto-traded. */
+  external?: boolean;
+  /** Latest broker price (GBP) when available. */
+  markPrice?: number;
+  markAt?: number;
 }
 
 export interface Trade {
@@ -297,4 +342,8 @@ export interface EngineState {
   /** Day key (UTC yyyy-mm-dd) -> counters, for daily limits. */
   daily: { day: string; entries: number; startEquity: number; aiCostGBP: number; aiCalls: number };
   lastScanAt: number;
+  /** Auto mode: entries execute without waiting for approval (risk checks still apply). */
+  autoTrade?: { enabled: boolean; since?: number };
+  /** Latest account values reported by a real broker. */
+  brokerAccount?: BrokerAccount & { syncedAt: number };
 }

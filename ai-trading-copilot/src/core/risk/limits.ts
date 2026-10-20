@@ -16,6 +16,7 @@ export const DEFAULT_LIMITS: Readonly<RiskLimits> = Object.freeze({
   maxDataAgeMs: 60_000,
   maxPriceDriftBps: 30,
   proposalTtlMs: 10 * 60_000,
+  maxCapitalGBP: 50,
 });
 
 /**
@@ -34,6 +35,7 @@ export const HARD_CEILINGS: Readonly<RiskLimits> = Object.freeze({
   maxDataAgeMs: 120_000,
   maxPriceDriftBps: 50,
   proposalTtlMs: 30 * 60_000,
+  maxCapitalGBP: 100,
 });
 
 /** For these keys a HIGHER value is tighter; for all others LOWER is tighter. */
