@@ -1,18 +1,89 @@
 {
   "v": 3,
-  "createdOnFiles": {"v": 1, "at": "2026-10-20T05:40:00Z"},
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-20T05:40:00Z"
+  },
   "title": "Yellowhammer Brand Directions",
-  "launch": {"view": "canvas"},
+  "launch": {
+    "view": "canvas"
+  },
   "pages": [],
   "boards": {
-    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 1420, "title": "00 — Overview & research"},
-    "A-Identity.dc.html": {"x": 0, "y": 1920, "w": 1440, "h": 1300, "title": "A — Identity system"},
-    "A-Hero.dc.html": {"x": 1520, "y": 1920, "w": 1440, "h": 1060, "title": "A — Homepage hero", "expand": "fill"},
-    "B-Identity.dc.html": {"x": 0, "y": 3720, "w": 1440, "h": 1300, "title": "B — Identity system"},
-    "B-Hero.dc.html": {"x": 1520, "y": 3720, "w": 1440, "h": 960, "title": "B — Homepage hero", "expand": "fill"},
-    "C-Identity.dc.html": {"x": 0, "y": 5520, "w": 1440, "h": 1300, "title": "C — Identity system"},
-    "C-Hero.dc.html": {"x": 1520, "y": 5520, "w": 1440, "h": 980, "title": "C — Homepage hero", "expand": "fill"},
-    "Recommendation.dc.html": {"x": 0, "y": 7080, "w": 1440, "h": 1120, "title": "Recommendation"}
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1420,
+      "title": "00 \u2014 Overview & research"
+    },
+    "A-Identity.dc.html": {
+      "x": 0,
+      "y": 1920,
+      "w": 1440,
+      "h": 1300,
+      "title": "A \u2014 Identity system"
+    },
+    "A-Hero.dc.html": {
+      "x": 1520,
+      "y": 1920,
+      "w": 1440,
+      "h": 1060,
+      "title": "A \u2014 Homepage hero",
+      "expand": "fill"
+    },
+    "B-Identity.dc.html": {
+      "x": 0,
+      "y": 3720,
+      "w": 1440,
+      "h": 1300,
+      "title": "B \u2014 Identity system"
+    },
+    "B-Hero.dc.html": {
+      "x": 1520,
+      "y": 3720,
+      "w": 1440,
+      "h": 960,
+      "title": "B \u2014 Homepage hero",
+      "expand": "fill"
+    },
+    "C-Identity.dc.html": {
+      "x": 0,
+      "y": 5520,
+      "w": 1440,
+      "h": 1300,
+      "title": "C \u2014 Identity system"
+    },
+    "C-Hero.dc.html": {
+      "x": 1520,
+      "y": 5520,
+      "w": 1440,
+      "h": 980,
+      "title": "C \u2014 Homepage hero",
+      "expand": "fill"
+    },
+    "Recommendation.dc.html": {
+      "x": 0,
+      "y": 7080,
+      "w": 1440,
+      "h": 1120,
+      "title": "Recommendation"
+    },
+    "D-Identity.dc.html": {
+      "x": 0,
+      "y": 8700,
+      "w": 1440,
+      "h": 1300,
+      "title": "D \u2014 Identity system"
+    },
+    "D-Hero.dc.html": {
+      "x": 1520,
+      "y": 8700,
+      "w": 1440,
+      "h": 1000,
+      "title": "D \u2014 Homepage hero",
+      "expand": "fill"
+    }
   },
   "order": [
     "Main.dc.html",
@@ -22,12 +93,39 @@
     "B-Hero.dc.html",
     "C-Identity.dc.html",
     "C-Hero.dc.html",
-    "Recommendation.dc.html"
+    "Recommendation.dc.html",
+    "D-Identity.dc.html",
+    "D-Hero.dc.html"
   ],
   "notes": {
-    "titleA": {"x": 0, "y": 1660, "text": "Direction A — All Bread, No Cheese", "kind": "title1", "maxW": 2960},
-    "titleB": {"x": 0, "y": 3460, "text": "Direction B — The Hammer", "kind": "title1", "maxW": 2960},
-    "titleC": {"x": 0, "y": 5260, "text": "Direction C — First Light", "kind": "title1", "maxW": 2960}
+    "titleA": {
+      "x": 0,
+      "y": 1660,
+      "text": "Direction A \u2014 All Bread, No Cheese",
+      "kind": "title1",
+      "maxW": 2960
+    },
+    "titleB": {
+      "x": 0,
+      "y": 3460,
+      "text": "Direction B \u2014 The Hammer",
+      "kind": "title1",
+      "maxW": 2960
+    },
+    "titleC": {
+      "x": 0,
+      "y": 5260,
+      "text": "Direction C \u2014 First Light",
+      "kind": "title1",
+      "maxW": 2960
+    },
+    "titleD": {
+      "x": 0,
+      "y": 8440,
+      "text": "Round 2 \u2014 Direction D: Interface",
+      "kind": "title1",
+      "maxW": 2960
+    }
   },
   "designSystems": []
 }

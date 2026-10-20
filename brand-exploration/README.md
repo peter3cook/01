@@ -27,3 +27,10 @@ Across a winter field, all you see of a yellowhammer is one bright point of colo
 
 ## Recommendation
 Go with A, borrowing B's bold, price-forward headlines for social and C's calm interface details. A is the only route that makes the low price read as good judgement rather than a compromise.
+
+## Round 2: Direction D, Interface (after feedback: too dark, no yellow needed, more UX)
+A light, UX-led identity that uses the language of the design tool itself: frames with selection handles, collaborator cursors, redline measurements and sticky-note comments.
+- **Logo:** the lowercase "yellowhammer" wordmark inside a selection frame, a cursor mark labelled "yh", and a framed "yh" app icon.
+- **Colour:** Paper `#FAFAF8`, White `#FFFFFF`, Graphite `#18181B`, Slate `#6B6B73`, Selection blue `#2E5BFF`, Redline `#D63D23`. No yellow.
+- **Type:** Geist (display and text), Geist Mono (annotations).
+- **Hero:** "Websites designed around your customers.", with a mobile mockup on a dotted design canvas and a four-step process strip.
