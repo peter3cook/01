@@ -1,7 +1,14 @@
 import type { DashboardSnapshot } from "../../core/engine";
 import type { RiskLimits } from "../../core/types";
 
-export type AppState = DashboardSnapshot & { authRequired?: boolean; outage: boolean };
+export type AppState = DashboardSnapshot & { authRequired?: boolean; outage: boolean; notifications?: string | null };
+
+/** How the app is connected, for labels. */
+export function modeInfo(s: Pick<AppState, "mode">) {
+  if (s.mode === "live") return { key: "live", badge: "Live · Real money", cls: "bad", simulated: false };
+  if (s.mode === "paper") return { key: "paper", badge: "Practice · Trading 212", cls: "accent", simulated: false };
+  return { key: "sim", badge: "Demo · Simulated", cls: "sim", simulated: true };
+}
 
 /** What the UI can ask for. The UI never talks to a broker or holds credentials. */
 export interface CopilotApi {
@@ -15,6 +22,7 @@ export interface CopilotApi {
   tightenLimits(patch: Partial<RiskLimits>): Promise<unknown>;
   scan(): Promise<unknown>;
   setOutage(active: boolean): Promise<unknown>;
+  setAutoTrade(enabled: boolean, confirm?: string): Promise<unknown>;
 }
 
 export class ApiError extends Error {
@@ -66,4 +74,5 @@ export class HttpApi implements CopilotApi {
   tightenLimits(patch: Partial<RiskLimits>) { return this.call("POST", "/limits", patch); }
   scan() { return this.call("POST", "/scan"); }
   setOutage(active: boolean) { return this.call("POST", "/sim/outage", { active }); }
+  setAutoTrade(enabled: boolean, confirm?: string) { return this.call("POST", "/auto-trade", { enabled, confirm }); }
 }

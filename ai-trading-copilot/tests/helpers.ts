@@ -67,3 +67,58 @@ export function setup(opts: Partial<EngineOptions> & { symbols?: string[] } = {}
     now: () => now,
   };
 }
+
+import type { BrokerAdapter } from "../src/core/execution/broker";
+import type { BrokerAccount, BrokerFill, BrokerOrderResult, BrokerOrderUpdate, BrokerPosition, OrderRequest } from "../src/core/types";
+
+/** Behaves like Trading 212: orders are ACCEPTED, fills arrive later via getOrderUpdate. */
+export class FakeAsyncBroker implements BrokerAdapter {
+  readonly name = "Fake T212";
+  readonly environment = "T212_DEMO" as const;
+  placed: OrderRequest[] = [];
+  cancelled: string[] = [];
+  updates = new Map<string, BrokerOrderUpdate>();
+  positions: BrokerPosition[] = [];
+  account: BrokerAccount = { cashGBP: 50, totalValueGBP: 50, investedGBP: 0, currency: "GBP" };
+  sellFills: Array<{ brokerOrderId: string; type: string; price: number; quantity: number; at: number; feesGBP: number }> = [];
+  failNextPlace = false;
+  found?: string;
+  private seq = 100;
+
+  async placeOrder(req: OrderRequest): Promise<BrokerOrderResult> {
+    if (this.failNextPlace) {
+      this.failNextPlace = false;
+      throw new Error("timeout");
+    }
+    this.placed.push(req);
+    const id = String(++this.seq);
+    this.updates.set(id, { state: "PENDING", brokerStatus: "NEW" });
+    return { status: "ACCEPTED", brokerOrderId: id, simulated: false };
+  }
+  async getOrderUpdate(id: string): Promise<BrokerOrderUpdate> {
+    return this.updates.get(id) ?? { state: "UNKNOWN", reason: "?" };
+  }
+  async cancelOrder(id: string) {
+    this.cancelled.push(id);
+    this.updates.set(id, { state: "CLOSED", brokerStatus: "CANCELLED", reason: "cancelled" });
+  }
+  async findOrder() {
+    return this.found ? { brokerOrderId: this.found } : undefined;
+  }
+  async getAccount() {
+    return this.account;
+  }
+  async getPositions() {
+    return this.positions;
+  }
+  async getSellFills() {
+    return this.sellFills;
+  }
+  lastId() {
+    return String(this.seq);
+  }
+  fill(id: string, price: number, quantity: number, at: number) {
+    const f: BrokerFill = { price, quantity, at, fees: { commission: 0, fxFee: 0, stampDuty: 0, explicitTotal: 0, spreadCost: 0 } };
+    this.updates.set(id, { state: "FILLED", fill: f, brokerStatus: "FILLED" });
+  }
+}

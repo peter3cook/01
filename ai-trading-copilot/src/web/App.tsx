@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ApiError, getToken, setToken, type AppState, type CopilotApi } from "./api/client";
+import { ApiError, getToken, modeInfo, setToken, type AppState, type CopilotApi } from "./api/client";
 import { useNow } from "./components/controls";
 import { IconBell, IconHome, IconList, IconRadar, IconShield, Logo } from "./components/icons";
 import { Activity, Approvals, Home, Markets, Risk } from "./screens";
@@ -66,23 +66,31 @@ export function App({ api }: { api: CopilotApi }) {
 
   if (!s) {
     return (
-      <div className="app"><div className="empty" style={{ marginTop: "30vh" }}>{err ?? "Loading simulated market…"}</div></div>
+      <div className="app"><div className="empty" style={{ marginTop: "30vh" }}>{err ?? "Loading…"}</div></div>
     );
   }
 
   const stale = !s.dataHealth.ok;
+  const m = modeInfo(s);
   return (
     <>
       <div className="app">
         <header className="topbar">
           <div className="brand"><span className="brand-mark"><Logo /></span>Copilot</div>
           <div style={{ display: "flex", gap: 6 }}>
-            <span className="pill sim" title="Demo mode with simulated prices. Live trading is disabled."><span className="dot" />Demo · Simulated</span>
+            <span className={`pill ${m.cls}`}><span className="dot" />{m.badge}</span>
+            {s.autoTrade.enabled && <span className="pill accent">Auto</span>}
             {s.emergencyStop.active ? <span className="pill bad">Stopped</span> : stale ? <span className="pill bad">Data stale</span> : null}
           </div>
         </header>
 
         {err && <div className="banner bad"><strong>Offline.</strong> {err}</div>}
+        {m.key === "live" && !s.emergencyStop.active && (
+          <div className="banner bad"><span>£</span><span><strong>Real money.</strong> {s.autoTrade.enabled ? "Auto mode is ON – trades are placed without asking you." : "Every trade waits for your approval."}</span></div>
+        )}
+        {s.warnings.length > 0 && (
+          <div className="banner warn"><span>⚠︎</span><span>{s.warnings.join(" · ")}</span></div>
+        )}
         {s.emergencyStop.active && (
           <div className="banner bad"><span>⛔</span><span><strong>Emergency stop is on.</strong> No new orders will be sent. {s.emergencyStop.reason}</span></div>
         )}
@@ -100,7 +108,7 @@ export function App({ api }: { api: CopilotApi }) {
         {tab === "risk" && <Risk s={s} act={act} api={api} />}
 
         <p className="faint" style={{ fontSize: 11, textAlign: "center", margin: "18px 0 0" }}>
-          Simulated demo. Prices, fills and P&amp;L are not real. Nothing here is financial advice.
+          {m.simulated ? "Simulated demo. Prices, fills and P&L are not real." : `Connected to ${s.broker.name}. Prices are end-of-day; fills come from the broker.`} Nothing here is financial advice.
         </p>
       </div>
 

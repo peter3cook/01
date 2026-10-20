@@ -75,4 +75,5 @@ export class LocalApi implements CopilotApi {
   tightenLimits(patch: Partial<RiskLimits>) { return this.wrap(() => this.engine.updateLimits(patch)); }
   scan() { return this.wrap(async () => { await this.engine.tick(); return this.engine.scan(); }); }
   setOutage(active: boolean) { return this.wrap(() => { this.md.setOutage(active); return { outage: active }; }); }
+  setAutoTrade(enabled: boolean, confirm?: string) { return this.wrap(() => this.engine.setAutoTrade(enabled, confirm)); }
 }

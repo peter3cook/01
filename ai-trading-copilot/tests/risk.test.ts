@@ -62,8 +62,25 @@ describe("risk engine", () => {
   it("approves a compliant order", () => {
     expect(validateEntry(ctx()).approved).toBe(true);
   });
-  it("blocks anything outside demo mode", () => {
-    expect(failed(ctx({ tradingMode: "live" }))).toContain("demo_mode");
+  it("allows simulated and practice modes, and live only when armed", () => {
+    expect(validateEntry(ctx({ tradingMode: "paper" })).approved).toBe(true);
+    expect(failed(ctx({ tradingMode: "live" }))).toContain("mode");
+    expect(failed(ctx({ tradingMode: "live", liveArmed: false }))).toContain("mode");
+    expect(validateEntry(ctx({ tradingMode: "live", liveArmed: true })).approved).toBe(true);
+    expect(failed(ctx({ tradingMode: "anything" }))).toContain("mode");
+  });
+  it("blocks outside market hours", () => {
+    expect(failed(ctx({ marketOpen: false }))).toContain("market_open");
+  });
+  it("caps the total money invested", () => {
+    expect(failed(ctx({ investedGBP: 45 }))).toContain("capital_cap");
+    expect(validateEntry(ctx({ investedGBP: 35 })).approved).toBe(true);
+  });
+  it("uses the limit price as the worst case for limit orders", () => {
+    // Quote says 100 but our limit is 100.4: risk is measured from 100.4.
+    const d = validateEntry(ctx({}, { isLimit: true, entryPrice: 100.4, quantity: 0.1, stopPrice: 99 }));
+    expect(d.checks.find((c) => c.id === "risk_per_trade")!.detail).toContain("0.14");
+    expect(d.checks.some((c) => c.id === "price_drift")).toBe(false);
   });
   it("blocks when the emergency stop is on", () => {
     expect(failed(ctx({ emergencyStopActive: true }))).toContain("emergency_stop");

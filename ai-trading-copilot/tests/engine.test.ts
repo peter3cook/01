@@ -159,7 +159,7 @@ describe("engine: approvals", () => {
     const { engine } = setup({ tradingMode: "live" });
     await engine.tick();
     expect(engine.snapshot().pending).toHaveLength(0);
-    expect(engine.snapshot().halted.reasons.join(" ")).toMatch(/demo/i);
+    expect(engine.snapshot().halted.reasons.join(" ")).toMatch(/armed/i);
   });
 });
 

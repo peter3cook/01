@@ -22,7 +22,7 @@ export function ProposalCard({ p, now, busy, onApprove, onReject }: { p: Proposa
           <h3>Buy {p.symbol}</h3>
           <div className="faint" style={{ fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.instrumentName}</div>
         </div>
-        <span className="pill sim">Simulated</span>
+        {p.dataSource === "SIMULATED" ? <span className="pill sim">Simulated</span> : <span className="pill accent">Limit order</span>}
       </div>
 
       <div className="expiry">
@@ -36,7 +36,7 @@ export function ProposalCard({ p, now, busy, onApprove, onReject }: { p: Proposa
       <div className="kv">
         <div><div className="k">Amount</div><div className="v num">{gbp(p.notionalGBP)}</div></div>
         <div><div className="k">Quantity</div><div className="v num">{qty(p.quantity)}</div></div>
-        <div><div className="k">Entry</div><div className="v num">{price(p.entryPrice)}</div></div>
+        <div><div className="k">{p.dataSource === "SIMULATED" ? "Entry" : "Max price"}</div><div className="v num">{price(p.entryPrice)}</div></div>
         <div><div className="k">Stop-loss</div><div className="v num down">{price(p.stopPrice)}</div></div>
         <div><div className="k">Target</div><div className="v num up">{price(p.targetPrice)}</div></div>
         <div><div className="k">Reward:risk</div><div className="v num">{rr.toFixed(1)}×</div></div>
@@ -73,7 +73,7 @@ export function ProposalCard({ p, now, busy, onApprove, onReject }: { p: Proposa
         <HoldButton label={busy || p.status === "APPROVED" ? "Sending…" : "Hold to approve"} onConfirm={onApprove} disabled={busy || expired || p.status !== "PENDING"} />
       </div>
       <p className="faint" style={{ fontSize: 11.5, margin: "10px 0 0", textAlign: "center" }}>
-        Approving sends one simulated buy order. The stop-loss and target exits are part of this plan.
+        {p.dataSource === "SIMULATED" ? "Approving sends one simulated buy order." : "Approving sends one limit buy order to Trading 212 (it never pays more than the max price). A stop-loss is placed at the broker once it fills."} The stop-loss and target exits are part of this plan.
       </p>
     </article>
   );
